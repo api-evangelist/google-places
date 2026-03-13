@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "places": "https://places.googleapis.com/v1/",
+    "Place": "schema:Place",
+    "name": "schema:name",
+    "description": "schema:description",
+    "address": "schema:address",
+    "geo": "schema:geo",
+    "latitude": "schema:latitude",
+    "longitude": "schema:longitude",
+    "telephone": "schema:telephone",
+    "url": "schema:url",
+    "photo": "schema:photo",
+    "review": "schema:review",
+    "aggregateRating": "schema:aggregateRating",
+    "ratingValue": "schema:ratingValue",
+    "openingHoursSpecification": "schema:openingHoursSpecification",
+    "priceRange": "schema:priceRange",
+    "type": "schema:additionalType"
+  }
+}

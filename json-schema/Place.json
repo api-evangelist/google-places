@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "Place.json",
+  "title": "Google Place",
+  "description": "A place object returned by the Google Places API.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Resource name of the place."
+    },
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of a place."
+    },
+    "displayName": {
+      "type": "object",
+      "description": "The localized name of the place.",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "languageCode": {
+          "type": "string"
+        }
+      }
+    },
+    "types": {
+      "type": "array",
+      "description": "A set of type tags for this place.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "formattedAddress": {
+      "type": "string",
+      "description": "A human-readable address for this place."
+    },
+    "location": {
+      "type": "object",
+      "description": "The position of this place.",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        }
+      }
+    },
+    "rating": {
+      "type": "number",
+      "description": "The average user rating for this place."
+    },
+    "userRatingCount": {
+      "type": "integer",
+      "description": "The total number of user ratings."
+    },
+    "websiteUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "The authoritative website for this place."
+    },
+    "regularOpeningHours": {
+      "type": "object",
+      "description": "The regular opening hours.",
+      "properties": {
+        "openNow": {
+          "type": "boolean"
+        },
+        "periods": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "photos": {
+      "type": "array",
+      "description": "Photos of this place.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "widthPx": {
+            "type": "integer"
+          },
+          "heightPx": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "description": "Reviews of this place.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "number"
+          },
+          "text": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "languageCode": {
+                "type": "string"
+              }
+            }
+          },
+          "publishTime": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

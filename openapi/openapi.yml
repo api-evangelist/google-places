@@ -1,0 +1,242 @@
+openapi: 3.1.0
+info:
+  title: Google Places API (New)
+  description: >-
+    The Places API is a service that accepts HTTP requests for location data
+    through a variety of methods. It returns formatted location data and imagery
+    about establishments, geographic locations, or prominent points of interest.
+  version: 1.0.0
+  contact:
+    name: Google
+    url: https://developers.google.com/maps/documentation/places/web-service
+servers:
+  - url: https://places.googleapis.com/v1
+paths:
+  /places:searchNearby:
+    post:
+      operationId: searchNearbyPlaces
+      summary: Nearby Search
+      description: Search for places near a specified location.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NearbySearchRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+  /places:searchText:
+    post:
+      operationId: searchTextPlaces
+      summary: Text Search
+      description: Search for places using a text query.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextSearchRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+  /places/{placeId}:
+    get:
+      operationId: getPlaceDetails
+      summary: Place Details
+      description: Get detailed information about a specific place.
+      parameters:
+        - name: placeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+  /places/{placeId}/photos/{photoReference}/media:
+    get:
+      operationId: getPlacePhoto
+      summary: Place Photo
+      description: Get a photo for a place.
+      parameters:
+        - name: placeId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: photoReference
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: maxHeightPx
+          in: query
+          schema:
+            type: integer
+        - name: maxWidthPx
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Photo media response
+  /places:autocomplete:
+    post:
+      operationId: autocompletePlaces
+      summary: Autocomplete
+      description: Get place predictions based on partial text input.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutocompleteRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutocompleteResponse'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key
+  schemas:
+    Place:
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        displayName:
+          type: object
+          properties:
+            text:
+              type: string
+            languageCode:
+              type: string
+        types:
+          type: array
+          items:
+            type: string
+        formattedAddress:
+          type: string
+        location:
+          $ref: '#/components/schemas/LatLng'
+        rating:
+          type: number
+        userRatingCount:
+          type: integer
+        websiteUri:
+          type: string
+        regularOpeningHours:
+          type: object
+          properties:
+            openNow:
+              type: boolean
+            periods:
+              type: array
+              items:
+                type: object
+        photos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Photo'
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+    LatLng:
+      type: object
+      properties:
+        latitude:
+          type: number
+        longitude:
+          type: number
+    Photo:
+      type: object
+      properties:
+        name:
+          type: string
+        widthPx:
+          type: integer
+        heightPx:
+          type: integer
+        authorAttributions:
+          type: array
+          items:
+            type: object
+    Review:
+      type: object
+      properties:
+        name:
+          type: string
+        rating:
+          type: number
+        text:
+          type: object
+          properties:
+            text:
+              type: string
+            languageCode:
+              type: string
+        publishTime:
+          type: string
+    NearbySearchRequest:
+      type: object
+      properties:
+        includedTypes:
+          type: array
+          items:
+            type: string
+        maxResultCount:
+          type: integer
+        locationRestriction:
+          type: object
+    TextSearchRequest:
+      type: object
+      properties:
+        textQuery:
+          type: string
+        maxResultCount:
+          type: integer
+    AutocompleteRequest:
+      type: object
+      properties:
+        input:
+          type: string
+        locationBias:
+          type: object
+    AutocompleteResponse:
+      type: object
+      properties:
+        suggestions:
+          type: array
+          items:
+            type: object
+    SearchResponse:
+      type: object
+      properties:
+        places:
+          type: array
+          items:
+            $ref: '#/components/schemas/Place'
+security:
+  - ApiKeyAuth: []
