@@ -1,4 +1,4 @@
-name: Google Places API
+name: Google Places
 description: >-
   The Google Places API is a service that accepts HTTP requests for location
   data through a variety of methods. It returns formatted location data and
