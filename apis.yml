@@ -11,12 +11,12 @@ created: '2026-03-13'
 modified: '2026-03-13'
 specificationVersion: '0.18'
 tags:
-  - Places
+  - Geolocation
+  - Google
   - Locations
   - Maps
-  - Geolocation
+  - Places
   - Points of Interest
-  - Google
 apis:
   - name: Google Places API
     description: >-
@@ -32,10 +32,10 @@ apis:
       - type: JSONSchema
         url: json-schema/Place.json
     tags:
-      - Places
       - Locations
-      - Search
       - Maps
+      - Places
+      - Search
 common:
   - type: GettingStarted
     url: https://developers.google.com/maps/documentation/places/web-service/overview
