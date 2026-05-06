@@ -1,0 +1,246 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Places API (New)
+  description: The Places API is a service that accepts HTTP requests for location data through a variety of methods. It returns
+    formatted location data and imagery about establishments, geographic locations, or prominent points of interest.
+  tags:
+  - Google
+  - Places
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: google-places
+    baseUri: https://places.googleapis.com/v1
+    description: Google Places API (New) HTTP API.
+    authentication:
+      type: apikey
+      in: query
+      name: key
+      value: '{{GOOGLE_PLACES_TOKEN}}'
+    resources:
+    - name: places-searchnearby
+      path: /places:searchNearby
+      operations:
+      - name: searchnearbyplaces
+        method: POST
+        description: Google Places Nearby Search
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: places-searchtext
+      path: /places:searchText
+      operations:
+      - name: searchtextplaces
+        method: POST
+        description: Google Places Text Search
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: places-placeid
+      path: /places/{placeId}
+      operations:
+      - name: getplacedetails
+        method: GET
+        description: Google Places Place Details
+        inputParameters:
+        - name: placeId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: places-placeid-photos-photoreference-media
+      path: /places/{placeId}/photos/{photoReference}/media
+      operations:
+      - name: getplacephoto
+        method: GET
+        description: Google Places Place Photo
+        inputParameters:
+        - name: placeId
+          in: path
+          type: string
+          required: true
+        - name: photoReference
+          in: path
+          type: string
+          required: true
+        - name: maxHeightPx
+          in: query
+          type: integer
+        - name: maxWidthPx
+          in: query
+          type: integer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: places-autocomplete
+      path: /places:autocomplete
+      operations:
+      - name: autocompleteplaces
+        method: POST
+        description: Google Places Autocomplete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: google-places-rest
+    description: REST adapter for Google Places API (New).
+    resources:
+    - path: /places:searchNearby
+      name: searchnearbyplaces
+      operations:
+      - method: POST
+        name: searchnearbyplaces
+        description: Google Places Nearby Search
+        call: google-places.searchnearbyplaces
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /places:searchText
+      name: searchtextplaces
+      operations:
+      - method: POST
+        name: searchtextplaces
+        description: Google Places Text Search
+        call: google-places.searchtextplaces
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /places/{placeId}
+      name: getplacedetails
+      operations:
+      - method: GET
+        name: getplacedetails
+        description: Google Places Place Details
+        call: google-places.getplacedetails
+        with:
+          placeId: rest.placeId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /places/{placeId}/photos/{photoReference}/media
+      name: getplacephoto
+      operations:
+      - method: GET
+        name: getplacephoto
+        description: Google Places Place Photo
+        call: google-places.getplacephoto
+        with:
+          placeId: rest.placeId
+          photoReference: rest.photoReference
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /places:autocomplete
+      name: autocompleteplaces
+      operations:
+      - method: POST
+        name: autocompleteplaces
+        description: Google Places Autocomplete
+        call: google-places.autocompleteplaces
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: google-places-mcp
+    transport: http
+    description: MCP adapter for Google Places API (New) for AI agent use.
+    tools:
+    - name: searchnearbyplaces
+      description: Google Places Nearby Search
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-places.searchnearbyplaces
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: searchtextplaces
+      description: Google Places Text Search
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-places.searchtextplaces
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getplacedetails
+      description: Google Places Place Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-places.getplacedetails
+      with:
+        placeId: tools.placeId
+      inputParameters:
+      - name: placeId
+        type: string
+        description: placeId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getplacephoto
+      description: Google Places Place Photo
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-places.getplacephoto
+      with:
+        placeId: tools.placeId
+        photoReference: tools.photoReference
+        maxHeightPx: tools.maxHeightPx
+        maxWidthPx: tools.maxWidthPx
+      inputParameters:
+      - name: placeId
+        type: string
+        description: placeId
+        required: true
+      - name: photoReference
+        type: string
+        description: photoReference
+        required: true
+      - name: maxHeightPx
+        type: integer
+        description: maxHeightPx
+      - name: maxWidthPx
+        type: integer
+        description: maxWidthPx
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: autocompleteplaces
+      description: Google Places Autocomplete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-places.autocompleteplaces
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    GOOGLE_PLACES_TOKEN: GOOGLE_PLACES_TOKEN
