@@ -41,7 +41,7 @@ common:
     url: https://developers.google.com/maps/documentation/places/web-service/overview
   - type: Pricing
     url: https://developers.google.com/maps/billing-and-pricing/pricing
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/context.jsonld
 maintainers:
   - FN: Kin Lane
