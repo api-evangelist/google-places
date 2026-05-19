@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Places API (New) — places:searchText
+  description: 'Google Places API (New) — places:searchText. 1 operations. Lead operation: Google Places Text Search. Self-contained
+    Naftiko capability covering one Google Places business surface.'
+  tags:
+  - Google Places
+  - places:searchText
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_PLACES_API_KEY: GOOGLE_PLACES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: openapi-places-searchtext
+    baseUri: https://places.googleapis.com/v1
+    description: Google Places API (New) — places:searchText business capability. Self-contained, no shared references.
+    resources:
+    - name: places:searchText
+      path: /places:searchText
+      operations:
+      - name: searchtextplaces
+        method: POST
+        description: Google Places Text Search
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.GOOGLE_PLACES_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: openapi-places-searchtext-rest
+    port: 8080
+    description: REST adapter for Google Places API (New) — places:searchText. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/places-searchtext
+      name: places-searchtext
+      description: REST surface for places:searchText.
+      operations:
+      - method: POST
+        name: searchtextplaces
+        description: Google Places Text Search
+        call: openapi-places-searchtext.searchtextplaces
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: openapi-places-searchtext-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Places API (New) — places:searchText. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: google-places-text-search
+      description: Google Places Text Search
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: openapi-places-searchtext.searchtextplaces
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

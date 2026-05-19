@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Places API (New) — Places:autocomplete
+  description: 'Google Places API (New) — Places:autocomplete. 1 operations. Lead operation: Google Places Autocomplete. Self-contained
+    Naftiko capability covering one Google Places business surface.'
+  tags:
+  - Google Places
+  - Places:autocomplete
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_PLACES_API_KEY: GOOGLE_PLACES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: openapi-places-autocomplete
+    baseUri: https://places.googleapis.com/v1
+    description: Google Places API (New) — Places:autocomplete business capability. Self-contained, no shared references.
+    resources:
+    - name: places:autocomplete
+      path: /places:autocomplete
+      operations:
+      - name: autocompleteplaces
+        method: POST
+        description: Google Places Autocomplete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: key
+      value: '{{env.GOOGLE_PLACES_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: openapi-places-autocomplete-rest
+    port: 8080
+    description: REST adapter for Google Places API (New) — Places:autocomplete. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/places-autocomplete
+      name: places-autocomplete
+      description: REST surface for places:autocomplete.
+      operations:
+      - method: POST
+        name: autocompleteplaces
+        description: Google Places Autocomplete
+        call: openapi-places-autocomplete.autocompleteplaces
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: openapi-places-autocomplete-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Places API (New) — Places:autocomplete. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: google-places-autocomplete
+      description: Google Places Autocomplete
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: openapi-places-autocomplete.autocompleteplaces
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
