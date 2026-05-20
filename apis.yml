@@ -8,44 +8,46 @@ created: '2026-03-13'
 modified: '2026-05-19'
 specificationVersion: '0.18'
 tags:
-- Geolocation
-- Google
-- Locations
-- Maps
-- Places
-- Points of Interest
-apis:
-- name: Google Places API
-  description: The Places API (New) provides programmatic access to Google's database of places, including establishments,
-    geographic locations, and points of interest. It supports nearby search, text search, place details, photos, and autocomplete
-    predictions.
-  humanURL: https://developers.google.com/maps/documentation/places/web-service
-  baseURL: https://places.googleapis.com/v1
-  properties:
-  - type: OpenAPI
-    url: openapi/openapi.yml
-  - type: JSONSchema
-    url: json-schema/Place.json
-  - type: NaftikoCapability
-    url: capabilities/openapi-places.yaml
-  - type: NaftikoCapability
-    url: capabilities/openapi-places-autocomplete.yaml
-  - type: NaftikoCapability
-    url: capabilities/openapi-places-searchnearby.yaml
-  - type: NaftikoCapability
-    url: capabilities/openapi-places-searchtext.yaml
-  tags:
+  - Geolocation
+  - Google
   - Locations
   - Maps
   - Places
-  - Search
+  - Points of Interest
+apis:
+  - name: Google Places API
+    description: The Places API (New) provides programmatic access to Google's database of places, including establishments,
+      geographic locations, and points of interest. It supports nearby search, text search, place details, photos, and autocomplete
+      predictions.
+    humanURL: https://developers.google.com/maps/documentation/places/web-service
+    baseURL: https://places.googleapis.com/v1
+    properties:
+    - type: OpenAPI
+      url: openapi/openapi.yml
+    - type: JSONSchema
+      url: json-schema/Place.json
+    - type: NaftikoCapability
+      url: capabilities/openapi-places.yaml
+    - type: NaftikoCapability
+      url: capabilities/openapi-places-autocomplete.yaml
+    - type: NaftikoCapability
+      url: capabilities/openapi-places-searchnearby.yaml
+    - type: NaftikoCapability
+      url: capabilities/openapi-places-searchtext.yaml
+    tags:
+    - Locations
+    - Maps
+    - Places
+    - Search
 common:
-- type: GettingStarted
-  url: https://developers.google.com/maps/documentation/places/web-service/overview
-- type: Pricing
-  url: https://developers.google.com/maps/billing-and-pricing/pricing
-- type: JSONLD
-  url: json-ld/context.jsonld
+  - type: GitHubOrganization
+    url: https://github.com/googleapis
+  - type: GettingStarted
+    url: https://developers.google.com/maps/documentation/places/web-service/overview
+  - type: Pricing
+    url: https://developers.google.com/maps/billing-and-pricing/pricing
+  - type: JSONLD
+    url: json-ld/context.jsonld
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
