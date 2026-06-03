@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/search-response-schema.json",
+  "title": "SearchResponse",
+  "description": "A response containing a list of places.",
+  "type": "object",
+  "properties": {
+    "places": {
+      "type": "array",
+      "description": "The list of places matching the request.",
+      "items": {
+        "$ref": "#/components/schemas/Place"
+      }
+    }
+  }
+}

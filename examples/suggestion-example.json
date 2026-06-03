@@ -1,0 +1,26 @@
+{
+  "placePrediction": {
+    "place": "places/ChIJN1t_tDeuEmsRUsoyG83frY4",
+    "placeId": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+    "text": {
+      "text": "Google Building 40",
+      "languageCode": "en"
+    },
+    "structuredFormat": {
+      "mainText": {
+        "text": "Google Building 40",
+        "languageCode": "en"
+      },
+      "secondaryText": {
+        "text": "Google Building 40",
+        "languageCode": "en"
+      }
+    }
+  },
+  "queryPrediction": {
+    "text": {
+      "text": "Google Building 40",
+      "languageCode": "en"
+    }
+  }
+}

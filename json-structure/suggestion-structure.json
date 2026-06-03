@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-structure/suggestion-structure.json",
+  "name": "Suggestion",
+  "description": "A single autocomplete suggestion.",
+  "type": "object",
+  "properties": {
+    "placePrediction": {
+      "description": "A predicted place.",
+      "properties": {
+        "place": {
+          "description": "The resource name of the predicted place.",
+          "example": "places/ChIJN1t_tDeuEmsRUsoyG83frY4",
+          "type": "string"
+        },
+        "placeId": {
+          "description": "The unique identifier of the predicted place.",
+          "example": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/components/schemas/LocalizedText"
+        },
+        "structuredFormat": {
+          "description": "A breakdown of the prediction into a main text and secondary text.",
+          "properties": {
+            "mainText": {
+              "$ref": "#/components/schemas/LocalizedText"
+            },
+            "secondaryText": {
+              "$ref": "#/components/schemas/LocalizedText"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "queryPrediction": {
+      "description": "A predicted query string.",
+      "properties": {
+        "text": {
+          "$ref": "#/components/schemas/LocalizedText"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

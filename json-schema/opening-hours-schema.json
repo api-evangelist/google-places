@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/opening-hours-schema.json",
+  "title": "OpeningHours",
+  "description": "Information about the operating hours of a place.",
+  "type": "object",
+  "properties": {
+    "openNow": {
+      "type": "boolean",
+      "description": "Whether the place is currently open.",
+      "example": true
+    },
+    "periods": {
+      "type": "array",
+      "description": "The periods that this place is open during the week.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "open": {
+            "$ref": "#/components/schemas/TimePoint"
+          },
+          "close": {
+            "$ref": "#/components/schemas/TimePoint"
+          }
+        }
+      }
+    },
+    "weekdayDescriptions": {
+      "type": "array",
+      "description": "Localized strings describing the opening hours for each day of the week.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

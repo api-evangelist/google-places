@@ -1,0 +1,197 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Google Places API (New) — Search"
+  description: >-
+    Search — Google Places API (New). 3 operations. Lead operation: Google
+    Places Search Text. Self-contained Naftiko capability covering one Google
+    Places business surface.
+  tags:
+    - Google Places
+    - Places
+    - Search
+  created: "2026-06-02"
+  modified: "2026-06-02"
+
+binds:
+  - namespace: env
+    keys:
+      GOOGLE_PLACES_API_KEY: GOOGLE_PLACES_API_KEY
+
+capability:
+
+  # ── 1. Consumes — the upstream HTTP API this capability speaks to ─────
+  consumes:
+    - type: http
+      namespace: "openapi-search"
+      baseUri: "https://places.googleapis.com/v1"
+      description: "Google Places API (New) — Search business capability. Self-contained, no shared references."
+      authentication:
+        type: apikey
+        key: X-Goog-Api-Key
+        value: "{{env.GOOGLE_PLACES_API_KEY}}"
+        placement: header
+      resources:
+        - name: "places-search-text"
+          path: "/places:searchText"
+          operations:
+            - name: "searchTextPlaces"
+              method: POST
+              description: "Search for places using a free-form text query."
+              inputParameters:
+                - name: "X-Goog-FieldMask"
+                  in: header
+                  type: string
+                  required: true
+                  description: "Comma-separated list of place fields to return."
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Text Search request body."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "places-search-nearby"
+          path: "/places:searchNearby"
+          operations:
+            - name: "searchNearbyPlaces"
+              method: POST
+              description: "Search for places within a specified geographic area."
+              inputParameters:
+                - name: "X-Goog-FieldMask"
+                  in: header
+                  type: string
+                  required: true
+                  description: "Comma-separated list of place fields to return."
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Nearby Search request body."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "places-autocomplete"
+          path: "/places:autocomplete"
+          operations:
+            - name: "autocompletePlaces"
+              method: POST
+              description: "Return place and query predictions for partial text input."
+              inputParameters:
+                - name: "X-Goog-FieldMask"
+                  in: header
+                  type: string
+                  required: true
+                  description: "Comma-separated list of place fields to return."
+                - name: "body"
+                  in: body
+                  type: object
+                  required: true
+                  description: "Autocomplete request body."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  # ── 2. REST exposer — one Spectral-compliant resource per consumed op ──
+  exposes:
+    - type: rest
+      namespace: "openapi-search-rest"
+      port: 8080
+      description: "REST adapter for Google Places API (New) — Search. One Spectral-compliant resource per consumed operation, prefixed with /v1."
+      resources:
+        - path: "/v1/places-search-text"
+          name: "places-search-text"
+          description: "REST surface for text search."
+          operations:
+            - method: POST
+              name: "searchTextPlaces"
+              description: "Search for places using a free-form text query."
+              call: "openapi-search.searchTextPlaces"
+              with:
+                "X-Goog-FieldMask": "rest.X-Goog-FieldMask"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/places-search-nearby"
+          name: "places-search-nearby"
+          description: "REST surface for nearby search."
+          operations:
+            - method: POST
+              name: "searchNearbyPlaces"
+              description: "Search for places within a specified geographic area."
+              call: "openapi-search.searchNearbyPlaces"
+              with:
+                "X-Goog-FieldMask": "rest.X-Goog-FieldMask"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: "/v1/places-autocomplete"
+          name: "places-autocomplete"
+          description: "REST surface for autocomplete."
+          operations:
+            - method: POST
+              name: "autocompletePlaces"
+              description: "Return place and query predictions for partial text input."
+              call: "openapi-search.autocompletePlaces"
+              with:
+                "X-Goog-FieldMask": "rest.X-Goog-FieldMask"
+                "body": "rest.body"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+  # ── 3. MCP exposer — one verb-noun tool per consumed op ──
+    - type: mcp
+      namespace: "openapi-search-mcp"
+      port: 9090
+      transport: http
+      description: "MCP adapter for Google Places API (New) — Search. One tool per consumed operation, routed inline through this capability's consumes block."
+      tools:
+        - name: "search-text"
+          description: "Search for places using a free-form text query."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "openapi-search.searchTextPlaces"
+          with:
+            "X-Goog-FieldMask": "tools.X-Goog-FieldMask"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "search-nearby"
+          description: "Search for places within a specified geographic area."
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: "openapi-search.searchNearbyPlaces"
+          with:
+            "X-Goog-FieldMask": "tools.X-Goog-FieldMask"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: "autocomplete-places"
+          description: "Return place and query predictions for partial text input."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "openapi-search.autocompletePlaces"
+          with:
+            "X-Goog-FieldMask": "tools.X-Goog-FieldMask"
+            "body": "tools.body"
+          outputParameters:
+            - type: object
+              mapping: "$."

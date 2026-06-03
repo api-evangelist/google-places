@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/author-attribution-schema.json",
+  "title": "AuthorAttribution",
+  "description": "Attribution for the author of a review or photo.",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "description": "The name of the author.",
+      "example": "Googleplex"
+    },
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "description": "A link to the author's profile.",
+      "example": "https://maps.google.com/?cid=12345678901234567890"
+    },
+    "photoUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "A link to the author's profile photo.",
+      "example": "https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media"
+    }
+  }
+}

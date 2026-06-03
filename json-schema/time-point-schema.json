@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/time-point-schema.json",
+  "title": "TimePoint",
+  "description": "A point in time when a place opens or closes.",
+  "type": "object",
+  "properties": {
+    "day": {
+      "type": "integer",
+      "description": "Day of the week, 0 (Sunday) to 6 (Saturday).",
+      "minimum": 0,
+      "maximum": 6,
+      "example": 1
+    },
+    "hour": {
+      "type": "integer",
+      "description": "Hour in 24-hour format, 0 to 23.",
+      "minimum": 0,
+      "maximum": 23,
+      "example": 9
+    },
+    "minute": {
+      "type": "integer",
+      "description": "Minute, 0 to 59.",
+      "minimum": 0,
+      "maximum": 59,
+      "example": 0
+    }
+  }
+}

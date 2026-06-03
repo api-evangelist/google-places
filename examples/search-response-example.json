@@ -1,0 +1,85 @@
+{
+  "places": [
+    {
+      "name": "places/ChIJN1t_tDeuEmsRUsoyG83frY4",
+      "id": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+      "displayName": {
+        "text": "Google Building 40",
+        "languageCode": "en"
+      },
+      "types": [
+        "restaurant"
+      ],
+      "primaryType": "cafe",
+      "formattedAddress": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
+      "shortFormattedAddress": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
+      "location": {
+        "latitude": 10.2129,
+        "longitude": -142.5644
+      },
+      "rating": 4.3,
+      "userRatingCount": 1409,
+      "priceLevel": "PRICE_LEVEL_FREE",
+      "businessStatus": "CLOSED_TEMPORARILY",
+      "nationalPhoneNumber": "+1 650-253-0000",
+      "internationalPhoneNumber": "+1 650-253-0000",
+      "websiteUri": "https://maps.google.com/?cid=12345678901234567890",
+      "googleMapsUri": "https://maps.google.com/?cid=12345678901234567890",
+      "regularOpeningHours": {
+        "openNow": true,
+        "periods": [
+          {
+            "open": {
+              "day": 3,
+              "hour": 15,
+              "minute": 30
+            },
+            "close": {
+              "day": 5,
+              "hour": 14,
+              "minute": 30
+            }
+          }
+        ],
+        "weekdayDescriptions": [
+          "Monday: 9:00 AM - 5:00 PM"
+        ]
+      },
+      "photos": [
+        {
+          "name": "places/ChIJN1t_tDeuEmsRUsoyG83frY4",
+          "widthPx": 1080,
+          "heightPx": 1920,
+          "authorAttributions": [
+            {
+              "displayName": "Googleplex",
+              "uri": "https://maps.google.com/?cid=12345678901234567890",
+              "photoUri": "https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media"
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "name": "places/ChIJN1t_tDeuEmsRUsoyG83frY4",
+          "rating": 4.2,
+          "text": {
+            "text": "Google Building 40",
+            "languageCode": "en"
+          },
+          "originalText": {
+            "text": "Google Building 40",
+            "languageCode": "en"
+          },
+          "relativePublishTimeDescription": "Monday: 9:00 AM - 5:00 PM",
+          "publishTime": "2026-03-15T14:30:00Z",
+          "authorAttribution": {
+            "displayName": "Googleplex",
+            "uri": "https://maps.google.com/?cid=12345678901234567890",
+            "photoUri": "https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media"
+          }
+        }
+      ]
+    }
+  ]
+}

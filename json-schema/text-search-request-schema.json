@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/text-search-request-schema.json",
+  "title": "TextSearchRequest",
+  "description": "Request body for a Text Search.",
+  "type": "object",
+  "required": [
+    "textQuery"
+  ],
+  "properties": {
+    "textQuery": {
+      "type": "string",
+      "description": "The free-form text query to search for.",
+      "example": "Google Building 40"
+    },
+    "includedType": {
+      "type": "string",
+      "description": "Restrict results to a single place type.",
+      "example": "restaurant"
+    },
+    "maxResultCount": {
+      "type": "integer",
+      "description": "The maximum number of results to return (1-20).",
+      "minimum": 1,
+      "maximum": 20,
+      "example": 128
+    },
+    "rankPreference": {
+      "type": "string",
+      "description": "How results are ranked.",
+      "enum": [
+        "RELEVANCE",
+        "DISTANCE"
+      ],
+      "example": "RELEVANCE"
+    },
+    "openNow": {
+      "type": "boolean",
+      "description": "Restrict results to places that are currently open.",
+      "example": true
+    },
+    "minRating": {
+      "type": "number",
+      "description": "Restrict results to places with at least this average rating.",
+      "minimum": 0,
+      "maximum": 5,
+      "example": 4.5
+    },
+    "languageCode": {
+      "type": "string",
+      "description": "The language in which to return results.",
+      "example": "en"
+    },
+    "regionCode": {
+      "type": "string",
+      "description": "The region code used to format and bias the response.",
+      "example": "US"
+    },
+    "locationBias": {
+      "type": "object",
+      "description": "The region to bias results toward, expressed as a circle.",
+      "properties": {
+        "circle": {
+          "$ref": "#/components/schemas/Circle"
+        }
+      }
+    }
+  }
+}

@@ -28,13 +28,32 @@ apis:
     - type: JSONSchema
       url: json-schema/Place.json
     - type: NaftikoCapability
+      url: capabilities/openapi-search.yaml
+    - type: NaftikoCapability
       url: capabilities/openapi-places.yaml
-    - type: NaftikoCapability
-      url: capabilities/openapi-places-autocomplete.yaml
-    - type: NaftikoCapability
-      url: capabilities/openapi-places-searchnearby.yaml
-    - type: NaftikoCapability
-      url: capabilities/openapi-places-searchtext.yaml
+    - type: SDK
+      url: https://developers.google.com/maps/documentation/places/android-sdk/overview
+      title: Android SDK
+    - type: SDK
+      url: https://developers.google.com/maps/documentation/places/ios-sdk/overview
+      title: iOS SDK
+    - type: SDK
+      url: https://developers.google.com/maps/documentation/javascript/places
+      title: JavaScript Library
+    - type: SDK
+      url: https://www.npmjs.com/package/@googlemaps/google-maps-services-js
+      title: Node.js Client
+    - type: SDK
+      url: https://pypi.org/project/googlemaps/
+      title: Python Client
+    - type: SDK
+      url: https://github.com/googlemaps/google-maps-services-java
+      title: Java Client
+    - type: CodeExamples
+      url: https://github.com/googlemaps/js-samples
+      title: JavaScript Samples
+    - type: Documentation
+      url: https://developers.google.com/maps/documentation/places/web-service
     tags:
     - Locations
     - Maps
@@ -42,13 +61,53 @@ apis:
     - Search
 common:
   - type: GitHubOrganization
-    url: https://github.com/googleapis
+    url: https://github.com/googlemaps
+  - type: Tools
+    title: MCP Server
+    url: https://github.com/googlemaps/platform-ai
+  - type: Tools
+    title: MCP Server (Grounding)
+    url: https://developers.google.com/maps/ai/grounding-lite/reference/mcp
   - type: GettingStarted
     url: https://developers.google.com/maps/documentation/places/web-service/overview
+  - type: Authentication
+    url: https://developers.google.com/maps/documentation/places/web-service/get-api-key
   - type: Pricing
     url: https://developers.google.com/maps/billing-and-pricing/pricing
+  - type: RateLimits
+    url: rate-limits/google-places-rate-limits.yml
+  - type: Plans
+    url: plans/google-places-plans-pricing.yml
+  - type: FinOps
+    url: finops/google-places-finops.yml
   - type: JSONLD
     url: json-ld/context.jsonld
+  - type: Spectral
+    url: rules/google-places-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/google-places-vocabulary.yml
+  - type: SupportTermsOfService
+    url: https://cloud.google.com/maps-platform/terms
+features:
+  - name: Text Search
+    description: Search for places using free-form text queries such as "pizza near Boston" and return matching establishments and points of interest.
+  - name: Nearby Search
+    description: Find places within a specified geographic radius, optionally filtered by place type, ranked by distance or prominence.
+  - name: Place Details
+    description: Retrieve comprehensive information about a place including address, opening hours, ratings, reviews, contact details, and photos.
+  - name: Place Photos
+    description: Access high-quality photographic content associated with a place from Google's database.
+  - name: Autocomplete
+    description: Return place and query predictions in response to partial text input, with optional session-based billing.
+useCases:
+  - name: Location Discovery
+    description: Help users discover restaurants, hotels, and points of interest near their current location.
+  - name: Address Autocomplete
+    description: Provide type-ahead address and place suggestions in forms to reduce input errors and speed up checkout flows.
+  - name: Delivery Enrichment
+    description: Enrich delivery and logistics status updates with verified place details and geolocation data.
+  - name: Travel and Tourism
+    description: Show travelers establishment contact information, pricing signals, reviews, ratings, and photos.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/place-schema.json",
+  "title": "Place",
+  "description": "A place returned by the Google Places API, such as an establishment or point of interest.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The resource name of the place, in the form places/{placeId}.",
+      "example": "places/ChIJN1t_tDeuEmsRUsoyG83frY4"
+    },
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the place.",
+      "example": "ChIJN1t_tDeuEmsRUsoyG83frY4"
+    },
+    "displayName": {
+      "$ref": "#/components/schemas/LocalizedText"
+    },
+    "types": {
+      "type": "array",
+      "description": "A set of type tags describing this place.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "primaryType": {
+      "type": "string",
+      "description": "The primary type of the given result.",
+      "example": "restaurant"
+    },
+    "formattedAddress": {
+      "type": "string",
+      "description": "A full, human-readable address for this place.",
+      "example": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA"
+    },
+    "shortFormattedAddress": {
+      "type": "string",
+      "description": "A short, human-readable address for this place.",
+      "example": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA"
+    },
+    "location": {
+      "$ref": "#/components/schemas/LatLng"
+    },
+    "rating": {
+      "type": "number",
+      "description": "The average user rating for this place, from 1.0 to 5.0.",
+      "minimum": 1,
+      "maximum": 5,
+      "example": 4.5
+    },
+    "userRatingCount": {
+      "type": "integer",
+      "description": "The total number of user reviews and ratings for this place.",
+      "example": 128
+    },
+    "priceLevel": {
+      "type": "string",
+      "description": "The price level of the place.",
+      "enum": [
+        "PRICE_LEVEL_UNSPECIFIED",
+        "PRICE_LEVEL_FREE",
+        "PRICE_LEVEL_INEXPENSIVE",
+        "PRICE_LEVEL_MODERATE",
+        "PRICE_LEVEL_EXPENSIVE",
+        "PRICE_LEVEL_VERY_EXPENSIVE"
+      ],
+      "example": "PRICE_LEVEL_FREE"
+    },
+    "businessStatus": {
+      "type": "string",
+      "description": "The operational status of the business at this location.",
+      "enum": [
+        "BUSINESS_STATUS_UNSPECIFIED",
+        "OPERATIONAL",
+        "CLOSED_TEMPORARILY",
+        "CLOSED_PERMANENTLY"
+      ],
+      "example": "OPERATIONAL"
+    },
+    "nationalPhoneNumber": {
+      "type": "string",
+      "description": "A human-readable phone number in national format.",
+      "example": "+1 650-253-0000"
+    },
+    "internationalPhoneNumber": {
+      "type": "string",
+      "description": "A human-readable phone number in international format.",
+      "example": "+1 650-253-0000"
+    },
+    "websiteUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "The authoritative website for this place.",
+      "example": "https://maps.google.com/?cid=12345678901234567890"
+    },
+    "googleMapsUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "A URI providing a link to this place on Google Maps.",
+      "example": "https://maps.google.com/?cid=12345678901234567890"
+    },
+    "regularOpeningHours": {
+      "$ref": "#/components/schemas/OpeningHours"
+    },
+    "photos": {
+      "type": "array",
+      "description": "Photos associated with this place.",
+      "items": {
+        "$ref": "#/components/schemas/Photo"
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "description": "Reviews about this place.",
+      "items": {
+        "$ref": "#/components/schemas/Review"
+      }
+    }
+  }
+}

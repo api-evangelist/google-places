@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-structure/circle-structure.json",
+  "name": "Circle",
+  "description": "A circle defined by a center point and a radius in meters.",
+  "type": "object",
+  "properties": {
+    "center": {
+      "$ref": "#/components/schemas/LatLng"
+    },
+    "radius": {
+      "description": "The radius of the circle in meters, from 0.0 to 50000.0.",
+      "minimum": 0,
+      "maximum": 50000,
+      "example": 500.0,
+      "type": "double"
+    }
+  }
+}

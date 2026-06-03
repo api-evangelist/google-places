@@ -1,0 +1,266 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "gmp": "https://places.googleapis.com/v1/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Place": "gmp:Place",
+    "LocalizedText": "gmp:LocalizedText",
+    "LatLng": "gmp:LatLng",
+    "Circle": "gmp:Circle",
+    "OpeningHours": "gmp:OpeningHours",
+    "TimePoint": "gmp:TimePoint",
+    "Photo": "gmp:Photo",
+    "AuthorAttribution": "gmp:AuthorAttribution",
+    "Review": "gmp:Review",
+    "PhotoMedia": "gmp:PhotoMedia",
+    "NearbySearchRequest": "gmp:NearbySearchRequest",
+    "TextSearchRequest": "gmp:TextSearchRequest",
+    "AutocompleteRequest": "gmp:AutocompleteRequest",
+    "AutocompleteResponse": "gmp:AutocompleteResponse",
+    "Suggestion": "gmp:Suggestion",
+    "SearchResponse": "gmp:SearchResponse",
+    "name": "schema:name",
+    "id": {
+      "@id": "gmp:id",
+      "@type": "xsd:string"
+    },
+    "displayName": {
+      "@id": "gmp:displayName",
+      "@type": "xsd:string"
+    },
+    "types": {
+      "@id": "gmp:types",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "primaryType": {
+      "@id": "gmp:primaryType",
+      "@type": "xsd:string"
+    },
+    "formattedAddress": "schema:address",
+    "shortFormattedAddress": {
+      "@id": "gmp:shortFormattedAddress",
+      "@type": "xsd:string"
+    },
+    "location": {
+      "@id": "gmp:location",
+      "@type": "xsd:string"
+    },
+    "rating": "schema:ratingValue",
+    "userRatingCount": {
+      "@id": "gmp:userRatingCount",
+      "@type": "xsd:integer"
+    },
+    "priceLevel": {
+      "@id": "gmp:priceLevel",
+      "@type": "xsd:string"
+    },
+    "businessStatus": {
+      "@id": "gmp:businessStatus",
+      "@type": "xsd:string"
+    },
+    "nationalPhoneNumber": "schema:telephone",
+    "internationalPhoneNumber": "schema:telephone",
+    "websiteUri": "schema:url",
+    "googleMapsUri": {
+      "@id": "gmp:googleMapsUri",
+      "@type": "@id"
+    },
+    "regularOpeningHours": {
+      "@id": "gmp:regularOpeningHours",
+      "@type": "xsd:string"
+    },
+    "photos": {
+      "@id": "gmp:photos",
+      "@container": "@set"
+    },
+    "reviews": {
+      "@id": "gmp:reviews",
+      "@container": "@set"
+    },
+    "text": {
+      "@id": "gmp:text",
+      "@type": "xsd:string"
+    },
+    "languageCode": {
+      "@id": "gmp:languageCode",
+      "@type": "xsd:string"
+    },
+    "latitude": "schema:latitude",
+    "longitude": "schema:longitude",
+    "center": {
+      "@id": "gmp:center",
+      "@type": "xsd:string"
+    },
+    "radius": {
+      "@id": "gmp:radius",
+      "@type": "xsd:decimal"
+    },
+    "openNow": {
+      "@id": "gmp:openNow",
+      "@type": "xsd:boolean"
+    },
+    "periods": {
+      "@id": "gmp:periods",
+      "@container": "@set"
+    },
+    "open": {
+      "@id": "gmp:open",
+      "@type": "xsd:string"
+    },
+    "close": {
+      "@id": "gmp:close",
+      "@type": "xsd:string"
+    },
+    "weekdayDescriptions": {
+      "@id": "gmp:weekdayDescriptions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "day": {
+      "@id": "gmp:day",
+      "@type": "xsd:integer"
+    },
+    "hour": {
+      "@id": "gmp:hour",
+      "@type": "xsd:integer"
+    },
+    "minute": {
+      "@id": "gmp:minute",
+      "@type": "xsd:integer"
+    },
+    "widthPx": {
+      "@id": "gmp:widthPx",
+      "@type": "xsd:integer"
+    },
+    "heightPx": {
+      "@id": "gmp:heightPx",
+      "@type": "xsd:integer"
+    },
+    "authorAttributions": {
+      "@id": "gmp:authorAttributions",
+      "@container": "@set"
+    },
+    "uri": {
+      "@id": "gmp:uri",
+      "@type": "@id"
+    },
+    "photoUri": {
+      "@id": "gmp:photoUri",
+      "@type": "@id"
+    },
+    "originalText": {
+      "@id": "gmp:originalText",
+      "@type": "xsd:string"
+    },
+    "relativePublishTimeDescription": {
+      "@id": "gmp:relativePublishTimeDescription",
+      "@type": "xsd:string"
+    },
+    "publishTime": {
+      "@id": "gmp:publishTime",
+      "@type": "xsd:dateTime"
+    },
+    "authorAttribution": {
+      "@id": "gmp:authorAttribution",
+      "@type": "xsd:string"
+    },
+    "includedTypes": {
+      "@id": "gmp:includedTypes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "excludedTypes": {
+      "@id": "gmp:excludedTypes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "maxResultCount": {
+      "@id": "gmp:maxResultCount",
+      "@type": "xsd:integer"
+    },
+    "rankPreference": {
+      "@id": "gmp:rankPreference",
+      "@type": "xsd:string"
+    },
+    "regionCode": {
+      "@id": "gmp:regionCode",
+      "@type": "xsd:string"
+    },
+    "locationRestriction": {
+      "@id": "gmp:locationRestriction",
+      "@type": "@id"
+    },
+    "circle": {
+      "@id": "gmp:circle",
+      "@type": "xsd:string"
+    },
+    "textQuery": {
+      "@id": "gmp:textQuery",
+      "@type": "xsd:string"
+    },
+    "includedType": {
+      "@id": "gmp:includedType",
+      "@type": "xsd:string"
+    },
+    "minRating": {
+      "@id": "gmp:minRating",
+      "@type": "xsd:decimal"
+    },
+    "locationBias": {
+      "@id": "gmp:locationBias",
+      "@type": "@id"
+    },
+    "input": {
+      "@id": "gmp:input",
+      "@type": "xsd:string"
+    },
+    "sessionToken": {
+      "@id": "gmp:sessionToken",
+      "@type": "xsd:string"
+    },
+    "includedPrimaryTypes": {
+      "@id": "gmp:includedPrimaryTypes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "suggestions": {
+      "@id": "gmp:suggestions",
+      "@container": "@set"
+    },
+    "placePrediction": {
+      "@id": "gmp:placePrediction",
+      "@type": "@id"
+    },
+    "place": {
+      "@id": "gmp:place",
+      "@type": "xsd:string"
+    },
+    "placeId": {
+      "@id": "gmp:placeId",
+      "@type": "xsd:string"
+    },
+    "structuredFormat": {
+      "@id": "gmp:structuredFormat",
+      "@type": "@id"
+    },
+    "mainText": {
+      "@id": "gmp:mainText",
+      "@type": "xsd:string"
+    },
+    "secondaryText": {
+      "@id": "gmp:secondaryText",
+      "@type": "xsd:string"
+    },
+    "queryPrediction": {
+      "@id": "gmp:queryPrediction",
+      "@type": "@id"
+    },
+    "places": {
+      "@id": "gmp:places",
+      "@container": "@set"
+    }
+  }
+}

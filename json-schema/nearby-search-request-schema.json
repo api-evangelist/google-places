@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/nearby-search-request-schema.json",
+  "title": "NearbySearchRequest",
+  "description": "Request body for a Nearby Search.",
+  "type": "object",
+  "required": [
+    "locationRestriction"
+  ],
+  "properties": {
+    "includedTypes": {
+      "type": "array",
+      "description": "Place types to include in the search.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "excludedTypes": {
+      "type": "array",
+      "description": "Place types to exclude from the search.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "maxResultCount": {
+      "type": "integer",
+      "description": "The maximum number of results to return (1-20).",
+      "minimum": 1,
+      "maximum": 20,
+      "example": 128
+    },
+    "rankPreference": {
+      "type": "string",
+      "description": "How results are ranked.",
+      "enum": [
+        "POPULARITY",
+        "DISTANCE"
+      ],
+      "example": "POPULARITY"
+    },
+    "languageCode": {
+      "type": "string",
+      "description": "The language in which to return results.",
+      "example": "en"
+    },
+    "regionCode": {
+      "type": "string",
+      "description": "The region code used to format the response.",
+      "example": "US"
+    },
+    "locationRestriction": {
+      "type": "object",
+      "description": "The region to search, expressed as a circle.",
+      "properties": {
+        "circle": {
+          "$ref": "#/components/schemas/Circle"
+        }
+      }
+    }
+  }
+}

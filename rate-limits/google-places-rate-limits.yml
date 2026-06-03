@@ -4,87 +4,63 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Google Places
 providerId: google-places
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-06-02'
+reconciled: true
 tags:
   - Geolocation
   - Google
-  - Locations
   - Maps
   - Places
-  - Points of Interest
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Google Places API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: >-
+  Google Places API (New) enforces rate limits per API method per Google Cloud
+  project. Each method (Text Search, Nearby Search, Place Details, Place Photos,
+  Autocomplete) has its own independent per-minute quota. The default per-minute
+  quota is configurable in the Google Cloud Console under Google Maps Platform >
+  Quotas, and can be raised by request. Limits are scoped to the project rather
+  than to an individual API key or IP. Quota-exceeded and throttled requests
+  return HTTP 429 with the gRPC status RESOURCE_EXHAUSTED. The numeric default is
+  not published as a fixed value on the docs page and must be confirmed per
+  project in the Cloud Console.
+sources:
+  - https://developers.google.com/maps/documentation/places/web-service/usage-and-billing
+  - https://developers.google.com/maps/documentation/places/web-service/report-monitor
 responseCodes:
   throttled: 429
   quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: Per-method per-minute quota
+    scope: project/method
     metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Google Places API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Google Places API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Google Places API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Google Places API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Google Places API
+    limit: 'per-method, configurable in Cloud Console > Google Maps Platform > Quotas'
+    notes: >-
+      Each Places API method has a separate per-minute quota counted against the
+      project. Adjustable and raisable via a quota increase request.
+  - name: Daily quota cap (optional)
+    scope: project
+    metric: requests_per_day
+    limit: 'optional cap set by the project owner to control spend'
+    notes: >-
+      Project owners may set a daily request cap per API to limit billing
+      exposure; not enforced by default.
 policies:
+  - name: Per-Method Scoping
+    description: >-
+      Rate limits are applied independently to each API method, so heavy use of
+      Text Search does not consume the quota available to Place Details.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: >-
+      On HTTP 429 (RESOURCE_EXHAUSTED), clients should retry with exponential
+      backoff and jitter rather than immediate retry.
+  - name: Quota Management
+    description: >-
+      View and adjust per-method per-minute quotas in the Google Cloud Console
+      under Google Maps Platform > Quotas; request increases through the console
+      when sustained higher throughput is required.
+  - name: Spend Capping
+    description: >-
+      Set daily request caps and budget alerts to bound cost, since billing is
+      usage-based per SKU rather than a fixed plan quota.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

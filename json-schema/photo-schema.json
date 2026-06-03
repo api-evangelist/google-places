@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/photo-schema.json",
+  "title": "Photo",
+  "description": "A photo associated with a place.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The resource name of the photo, used to fetch the media.",
+      "example": "places/ChIJN1t_tDeuEmsRUsoyG83frY4"
+    },
+    "widthPx": {
+      "type": "integer",
+      "description": "The maximum available width of the photo in pixels.",
+      "example": 1080
+    },
+    "heightPx": {
+      "type": "integer",
+      "description": "The maximum available height of the photo in pixels.",
+      "example": 1080
+    },
+    "authorAttributions": {
+      "type": "array",
+      "description": "Attribution information for the authors of this photo.",
+      "items": {
+        "$ref": "#/components/schemas/AuthorAttribution"
+      }
+    }
+  }
+}

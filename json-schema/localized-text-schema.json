@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/localized-text-schema.json",
+  "title": "LocalizedText",
+  "description": "Localized text in a particular language.",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "The localized text value.",
+      "example": "Google Building 40"
+    },
+    "languageCode": {
+      "type": "string",
+      "description": "The BCP-47 language code of the text.",
+      "example": "en"
+    }
+  }
+}

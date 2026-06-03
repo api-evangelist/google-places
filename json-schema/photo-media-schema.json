@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/photo-media-schema.json",
+  "title": "PhotoMedia",
+  "description": "A reference to a place photo's media URI.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The resource name of the photo media.",
+      "example": "places/ChIJN1t_tDeuEmsRUsoyG83frY4"
+    },
+    "photoUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "A short-lived URI to the photo bytes.",
+      "example": "https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media"
+    }
+  }
+}

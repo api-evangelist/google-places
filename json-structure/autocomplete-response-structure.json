@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-structure/autocomplete-response-structure.json",
+  "name": "AutocompleteResponse",
+  "description": "Response from an Autocomplete request.",
+  "type": "object",
+  "properties": {
+    "suggestions": {
+      "description": "A list of place and query suggestions.",
+      "items": {
+        "$ref": "#/components/schemas/Suggestion"
+      },
+      "type": "array"
+    }
+  }
+}

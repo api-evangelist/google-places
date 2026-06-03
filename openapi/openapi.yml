@@ -2,256 +2,1066 @@ openapi: 3.1.0
 info:
   title: Google Places API (New)
   description: >-
-    The Places API is a service that accepts HTTP requests for location data
-    through a variety of methods. It returns formatted location data and imagery
-    about establishments, geographic locations, or prominent points of interest.
+    The Places API (New) is a service that accepts HTTP requests for location
+    data through a variety of methods. It returns formatted location data and
+    imagery about establishments, geographic locations, or prominent points of
+    interest. The API supports Text Search, Nearby Search, Place Details, Place
+    Photos, and Autocomplete. Responses on the New API are shaped by the
+    required X-Goog-FieldMask header, which controls exactly which fields are
+    returned and which billing SKU applies.
   version: 1.0.0
   contact:
-    name: Google
+    name: Google Maps Platform
     url: https://developers.google.com/maps/documentation/places/web-service
+  license:
+    name: Google APIs Terms of Service
+    url: https://developers.google.com/maps/terms
+  x-last-validated: '2026-06-02'
 servers:
-  - url: https://places.googleapis.com/v1
+- url: https://places.googleapis.com/v1
+  description: Google Places API (New) production server
 paths:
   /places:searchNearby:
     post:
       operationId: searchNearbyPlaces
-      summary: Google Places Nearby Search
-      description: Search for places near a specified location.
+      summary: Google Places Search Nearby
+      description: >-
+        Search for places within a specified geographic area, optionally
+        filtered by one or more place types. Results can be ranked by popularity
+        or by distance from a center point.
+      parameters:
+      - $ref: '#/components/parameters/FieldMask'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/NearbySearchRequest'
+            examples:
+              SearchNearbyPlacesRequestExample:
+                summary: Default searchNearbyPlaces request
+                x-microcks-default: true
+                value:
+                  includedTypes:
+                  - restaurant
+                  excludedTypes:
+                  - restaurant
+                  maxResultCount: 128
+                  rankPreference: POPULARITY
+                  languageCode: en
+                  regionCode: US
+                  locationRestriction:
+                    circle:
+                      center:
+                        latitude: 37.422
+                        longitude: -122.0841
+                      radius: 500.0
       responses:
         '200':
-          description: Successful response
+          description: A list of places matching the nearby search criteria.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchResponse'
+              examples:
+                SearchNearbyPlaces200Example:
+                  summary: Default searchNearbyPlaces 200 response
+                  x-microcks-default: true
+                  value:
+                    places:
+                    - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                      id: ChIJN1t_tDeuEmsRUsoyG83frY4
+                      displayName:
+                        text: Google Building 40
+                        languageCode: en
+                      types:
+                      - restaurant
+                      primaryType: restaurant
+                      formattedAddress: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+                      shortFormattedAddress: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+                      location:
+                        latitude: 37.422
+                        longitude: -122.0841
+                      rating: 4.5
+                      userRatingCount: 128
+                      priceLevel: PRICE_LEVEL_FREE
+                      businessStatus: OPERATIONAL
+                      nationalPhoneNumber: +1 650-253-0000
+                      internationalPhoneNumber: +1 650-253-0000
+                      websiteUri: https://maps.google.com/?cid=12345678901234567890
+                      googleMapsUri: https://maps.google.com/?cid=12345678901234567890
+                      regularOpeningHours:
+                        openNow: true
+                        periods:
+                        - open:
+                            day: 1
+                            hour: 9
+                            minute: 0
+                          close:
+                            day: 1
+                            hour: 9
+                            minute: 0
+                        weekdayDescriptions:
+                        - 'Monday: 9:00 AM - 5:00 PM'
+                      photos:
+                      - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                        widthPx: 1080
+                        heightPx: 1080
+                        authorAttributions:
+                        - displayName: Googleplex
+                          uri: https://maps.google.com/?cid=12345678901234567890
+                          photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+                      reviews:
+                      - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                        rating: 4.5
+                        text:
+                          text: Google Building 40
+                          languageCode: en
+                        originalText:
+                          text: Google Building 40
+                          languageCode: en
+                        relativePublishTimeDescription: 'Monday: 9:00 AM - 5:00 PM'
+                        publishTime: '2026-03-15T14:30:00Z'
+                        authorAttribution:
+                          displayName: Googleplex
+                          uri: https://maps.google.com/?cid=12345678901234567890
+                          photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                SearchNearbyPlaces400Example:
+                  summary: Default searchNearbyPlaces 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: 400
+                      message: Request contains an invalid argument.
+                      status: INVALID_ARGUMENT
+        '403':
+          description: Permission denied, typically an invalid or unauthorized API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                SearchNearbyPlaces403Example:
+                  summary: Default searchNearbyPlaces 403 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: 400
+                      message: Request contains an invalid argument.
+                      status: INVALID_ARGUMENT
       tags:
-        - places:searchNearby
+      - Search
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /places:searchText:
     post:
       operationId: searchTextPlaces
-      summary: Google Places Text Search
-      description: Search for places using a text query.
+      summary: Google Places Search Text
+      description: >-
+        Search for places using a free-form text query such as "spicy
+        vegetarian food in Sydney". Returns a list of matching places ranked by
+        relevance.
+      parameters:
+      - $ref: '#/components/parameters/FieldMask'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TextSearchRequest'
+            examples:
+              SearchTextPlacesRequestExample:
+                summary: Default searchTextPlaces request
+                x-microcks-default: true
+                value:
+                  textQuery: Google Building 40
+                  includedType: restaurant
+                  maxResultCount: 128
+                  rankPreference: RELEVANCE
+                  openNow: true
+                  minRating: 4.5
+                  languageCode: en
+                  regionCode: US
+                  locationBias:
+                    circle:
+                      center:
+                        latitude: 37.422
+                        longitude: -122.0841
+                      radius: 500.0
       responses:
         '200':
-          description: Successful response
+          description: A list of places matching the text query.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchResponse'
+              examples:
+                SearchTextPlaces200Example:
+                  summary: Default searchTextPlaces 200 response
+                  x-microcks-default: true
+                  value:
+                    places:
+                    - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                      id: ChIJN1t_tDeuEmsRUsoyG83frY4
+                      displayName:
+                        text: Google Building 40
+                        languageCode: en
+                      types:
+                      - restaurant
+                      primaryType: restaurant
+                      formattedAddress: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+                      shortFormattedAddress: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+                      location:
+                        latitude: 37.422
+                        longitude: -122.0841
+                      rating: 4.5
+                      userRatingCount: 128
+                      priceLevel: PRICE_LEVEL_FREE
+                      businessStatus: OPERATIONAL
+                      nationalPhoneNumber: +1 650-253-0000
+                      internationalPhoneNumber: +1 650-253-0000
+                      websiteUri: https://maps.google.com/?cid=12345678901234567890
+                      googleMapsUri: https://maps.google.com/?cid=12345678901234567890
+                      regularOpeningHours:
+                        openNow: true
+                        periods:
+                        - open:
+                            day: 1
+                            hour: 9
+                            minute: 0
+                          close:
+                            day: 1
+                            hour: 9
+                            minute: 0
+                        weekdayDescriptions:
+                        - 'Monday: 9:00 AM - 5:00 PM'
+                      photos:
+                      - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                        widthPx: 1080
+                        heightPx: 1080
+                        authorAttributions:
+                        - displayName: Googleplex
+                          uri: https://maps.google.com/?cid=12345678901234567890
+                          photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+                      reviews:
+                      - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                        rating: 4.5
+                        text:
+                          text: Google Building 40
+                          languageCode: en
+                        originalText:
+                          text: Google Building 40
+                          languageCode: en
+                        relativePublishTimeDescription: 'Monday: 9:00 AM - 5:00 PM'
+                        publishTime: '2026-03-15T14:30:00Z'
+                        authorAttribution:
+                          displayName: Googleplex
+                          uri: https://maps.google.com/?cid=12345678901234567890
+                          photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                SearchTextPlaces400Example:
+                  summary: Default searchTextPlaces 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: 400
+                      message: Request contains an invalid argument.
+                      status: INVALID_ARGUMENT
+        '403':
+          description: Permission denied, typically an invalid or unauthorized API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                SearchTextPlaces403Example:
+                  summary: Default searchTextPlaces 403 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: 400
+                      message: Request contains an invalid argument.
+                      status: INVALID_ARGUMENT
       tags:
-        - places:searchText
+      - Search
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /places/{placeId}:
     get:
       operationId: getPlaceDetails
-      summary: Google Places Place Details
-      description: Get detailed information about a specific place.
+      summary: Google Places Get Place Details
+      description: >-
+        Retrieve comprehensive information about a specific place by its place
+        ID, including address, location, opening hours, ratings, reviews,
+        contact details, and photos.
       parameters:
-        - name: placeId
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: placeId
+        in: path
+        required: true
+        description: The unique place identifier returned by search or autocomplete.
+        schema:
+          type: string
+        example: ChIJN1t_tDeuEmsRUsoyG83frY4
+      - $ref: '#/components/parameters/FieldMask'
+      - name: languageCode
+        in: query
+        description: The language in which to return results (BCP-47 language tag).
+        schema:
+          type: string
+        example: en
+      - name: regionCode
+        in: query
+        description: The region code, specified as a CLDR two-character region code.
+        schema:
+          type: string
+        example: US
       responses:
         '200':
-          description: Successful response
+          description: Detailed information about the requested place.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Place'
+              examples:
+                GetPlaceDetails200Example:
+                  summary: Default getPlaceDetails 200 response
+                  x-microcks-default: true
+                  value:
+                    name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                    id: ChIJN1t_tDeuEmsRUsoyG83frY4
+                    displayName:
+                      text: Google Building 40
+                      languageCode: en
+                    types:
+                    - restaurant
+                    primaryType: restaurant
+                    formattedAddress: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+                    shortFormattedAddress: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+                    location:
+                      latitude: 37.422
+                      longitude: -122.0841
+                    rating: 4.5
+                    userRatingCount: 128
+                    priceLevel: PRICE_LEVEL_FREE
+                    businessStatus: OPERATIONAL
+                    nationalPhoneNumber: +1 650-253-0000
+                    internationalPhoneNumber: +1 650-253-0000
+                    websiteUri: https://maps.google.com/?cid=12345678901234567890
+                    googleMapsUri: https://maps.google.com/?cid=12345678901234567890
+                    regularOpeningHours:
+                      openNow: true
+                      periods:
+                      - open:
+                          day: 1
+                          hour: 9
+                          minute: 0
+                        close:
+                          day: 1
+                          hour: 9
+                          minute: 0
+                      weekdayDescriptions:
+                      - 'Monday: 9:00 AM - 5:00 PM'
+                    photos:
+                    - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                      widthPx: 1080
+                      heightPx: 1080
+                      authorAttributions:
+                      - displayName: Googleplex
+                        uri: https://maps.google.com/?cid=12345678901234567890
+                        photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+                    reviews:
+                    - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                      rating: 4.5
+                      text:
+                        text: Google Building 40
+                        languageCode: en
+                      originalText:
+                        text: Google Building 40
+                        languageCode: en
+                      relativePublishTimeDescription: 'Monday: 9:00 AM - 5:00 PM'
+                      publishTime: '2026-03-15T14:30:00Z'
+                      authorAttribution:
+                        displayName: Googleplex
+                        uri: https://maps.google.com/?cid=12345678901234567890
+                        photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+        '404':
+          description: The requested place was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                GetPlaceDetails404Example:
+                  summary: Default getPlaceDetails 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: 400
+                      message: Request contains an invalid argument.
+                      status: INVALID_ARGUMENT
       tags:
-        - Places
-  /places/{placeId}/photos/{photoReference}/media:
+      - Places
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /places/{placeId}/photos/{photoName}/media:
     get:
       operationId: getPlacePhoto
-      summary: Google Places Place Photo
-      description: Get a photo for a place.
+      summary: Google Places Get Place Photo
+      description: >-
+        Retrieve a photo for a place. The photo is referenced by the photo
+        resource name returned in a Place Details, Nearby Search, or Text Search
+        response. Returns the photo media or a redirect to the image bytes.
       parameters:
-        - name: placeId
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: photoReference
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: maxHeightPx
-          in: query
-          schema:
-            type: integer
-        - name: maxWidthPx
-          in: query
-          schema:
-            type: integer
+      - name: placeId
+        in: path
+        required: true
+        description: The unique place identifier.
+        schema:
+          type: string
+        example: ChIJN1t_tDeuEmsRUsoyG83frY4
+      - name: photoName
+        in: path
+        required: true
+        description: >-
+          The photo resource reference returned in a place's photos array
+          (the segment following photos/).
+        schema:
+          type: string
+        example: AeJbb3eJ_example_reference
+      - name: maxHeightPx
+        in: query
+        description: Maximum desired height of the image in pixels (1-4800).
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 4800
+        example: 1080
+      - name: maxWidthPx
+        in: query
+        description: Maximum desired width of the image in pixels (1-4800).
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 4800
+        example: 1080
+      - name: skipHttpRedirect
+        in: query
+        description: If true, returns a JSON response with the photo URI instead of redirecting.
+        schema:
+          type: boolean
+        example: true
       responses:
         '200':
-          description: Photo media response
+          description: The photo media response, or a JSON photo reference when skipHttpRedirect is true.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhotoMedia'
+              examples:
+                GetPlacePhoto200Example:
+                  summary: Default getPlacePhoto 200 response
+                  x-microcks-default: true
+                  value:
+                    name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                    photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
       tags:
-        - Places
+      - Places
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /places:autocomplete:
     post:
       operationId: autocompletePlaces
       summary: Google Places Autocomplete
-      description: Get place predictions based on partial text input.
+      description: >-
+        Return place and query predictions in response to partial text input.
+        Supports session tokens so that autocomplete keystrokes plus a
+        subsequent Place Details request are billed as a single session.
+      parameters:
+      - $ref: '#/components/parameters/FieldMask'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AutocompleteRequest'
+            examples:
+              AutocompletePlacesRequestExample:
+                summary: Default autocompletePlaces request
+                x-microcks-default: true
+                value:
+                  input: Googlep
+                  sessionToken: 0a1b2c3d-4e5f-6789-abcd-ef0123456789
+                  languageCode: en
+                  regionCode: US
+                  includedPrimaryTypes:
+                  - restaurant
+                  locationBias:
+                    circle:
+                      center:
+                        latitude: 37.422
+                        longitude: -122.0841
+                      radius: 500.0
       responses:
         '200':
-          description: Successful response
+          description: A list of place and query predictions.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AutocompleteResponse'
+              examples:
+                AutocompletePlaces200Example:
+                  summary: Default autocompletePlaces 200 response
+                  x-microcks-default: true
+                  value:
+                    suggestions:
+                    - placePrediction:
+                        place: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                        placeId: ChIJN1t_tDeuEmsRUsoyG83frY4
+                        text:
+                          text: Google Building 40
+                          languageCode: en
+                        structuredFormat:
+                          mainText:
+                            text: Google Building 40
+                            languageCode: en
+                          secondaryText:
+                            text: Google Building 40
+                            languageCode: en
+                      queryPrediction:
+                        text:
+                          text: Google Building 40
+                          languageCode: en
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                AutocompletePlaces400Example:
+                  summary: Default autocompletePlaces 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: 400
+                      message: Request contains an invalid argument.
+                      status: INVALID_ARGUMENT
       tags:
-        - Places:autocomplete
+      - Search
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
+      in: header
+      name: X-Goog-Api-Key
+      description: Google Maps Platform API key passed in the X-Goog-Api-Key header.
+    ApiKeyQuery:
+      type: apiKey
       in: query
       name: key
+      description: Google Maps Platform API key passed as the key query parameter.
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 bearer token authorization for the Google Maps Platform.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/maps-platform.places: Access the Places API
+  parameters:
+    FieldMask:
+      name: X-Goog-FieldMask
+      in: header
+      required: true
+      description: >-
+        Comma-separated list of place fields to return. Required on all Places
+        API (New) requests; determines the response shape and the billing SKU
+        tier (for example places.id, places.displayName, places.location).
+      schema:
+        type: string
   schemas:
     Place:
       type: object
+      description: A place returned by the Google Places API, such as an establishment or point of interest.
       properties:
         name:
           type: string
+          description: The resource name of the place, in the form places/{placeId}.
+          example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
         id:
           type: string
+          description: The unique identifier of the place.
+          example: ChIJN1t_tDeuEmsRUsoyG83frY4
         displayName:
-          type: object
-          properties:
-            text:
-              type: string
-            languageCode:
-              type: string
+          $ref: '#/components/schemas/LocalizedText'
         types:
           type: array
+          description: A set of type tags describing this place.
           items:
             type: string
+        primaryType:
+          type: string
+          description: The primary type of the given result.
+          example: restaurant
         formattedAddress:
           type: string
+          description: A full, human-readable address for this place.
+          example: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+        shortFormattedAddress:
+          type: string
+          description: A short, human-readable address for this place.
+          example: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
         location:
           $ref: '#/components/schemas/LatLng'
         rating:
           type: number
+          description: The average user rating for this place, from 1.0 to 5.0.
+          minimum: 1
+          maximum: 5
+          example: 4.5
         userRatingCount:
           type: integer
+          description: The total number of user reviews and ratings for this place.
+          example: 128
+        priceLevel:
+          type: string
+          description: The price level of the place.
+          enum:
+          - PRICE_LEVEL_UNSPECIFIED
+          - PRICE_LEVEL_FREE
+          - PRICE_LEVEL_INEXPENSIVE
+          - PRICE_LEVEL_MODERATE
+          - PRICE_LEVEL_EXPENSIVE
+          - PRICE_LEVEL_VERY_EXPENSIVE
+          example: PRICE_LEVEL_FREE
+        businessStatus:
+          type: string
+          description: The operational status of the business at this location.
+          enum:
+          - BUSINESS_STATUS_UNSPECIFIED
+          - OPERATIONAL
+          - CLOSED_TEMPORARILY
+          - CLOSED_PERMANENTLY
+          example: OPERATIONAL
+        nationalPhoneNumber:
+          type: string
+          description: A human-readable phone number in national format.
+          example: +1 650-253-0000
+        internationalPhoneNumber:
+          type: string
+          description: A human-readable phone number in international format.
+          example: +1 650-253-0000
         websiteUri:
           type: string
+          format: uri
+          description: The authoritative website for this place.
+          example: https://maps.google.com/?cid=12345678901234567890
+        googleMapsUri:
+          type: string
+          format: uri
+          description: A URI providing a link to this place on Google Maps.
+          example: https://maps.google.com/?cid=12345678901234567890
         regularOpeningHours:
-          type: object
-          properties:
-            openNow:
-              type: boolean
-            periods:
-              type: array
-              items:
-                type: object
+          $ref: '#/components/schemas/OpeningHours'
         photos:
           type: array
+          description: Photos associated with this place.
           items:
             $ref: '#/components/schemas/Photo'
         reviews:
           type: array
+          description: Reviews about this place.
           items:
             $ref: '#/components/schemas/Review'
+    LocalizedText:
+      type: object
+      description: Localized text in a particular language.
+      properties:
+        text:
+          type: string
+          description: The localized text value.
+          example: Google Building 40
+        languageCode:
+          type: string
+          description: The BCP-47 language code of the text.
+          example: en
     LatLng:
       type: object
+      description: A latitude/longitude pair expressed in degrees.
       properties:
         latitude:
           type: number
+          description: Latitude in degrees, in the range -90.0 to 90.0.
+          minimum: -90
+          maximum: 90
+          example: 37.422
         longitude:
           type: number
-    Photo:
+          description: Longitude in degrees, in the range -180.0 to 180.0.
+          minimum: -180
+          maximum: 180
+          example: -122.0841
+    Circle:
       type: object
+      description: A circle defined by a center point and a radius in meters.
       properties:
-        name:
-          type: string
-        widthPx:
-          type: integer
-        heightPx:
-          type: integer
-        authorAttributions:
+        center:
+          $ref: '#/components/schemas/LatLng'
+        radius:
+          type: number
+          description: The radius of the circle in meters, from 0.0 to 50000.0.
+          minimum: 0
+          maximum: 50000
+          example: 500.0
+    OpeningHours:
+      type: object
+      description: Information about the operating hours of a place.
+      properties:
+        openNow:
+          type: boolean
+          description: Whether the place is currently open.
+          example: true
+        periods:
           type: array
+          description: The periods that this place is open during the week.
           items:
             type: object
-    Review:
+            properties:
+              open:
+                $ref: '#/components/schemas/TimePoint'
+              close:
+                $ref: '#/components/schemas/TimePoint'
+        weekdayDescriptions:
+          type: array
+          description: Localized strings describing the opening hours for each day of the week.
+          items:
+            type: string
+    TimePoint:
       type: object
+      description: A point in time when a place opens or closes.
+      properties:
+        day:
+          type: integer
+          description: Day of the week, 0 (Sunday) to 6 (Saturday).
+          minimum: 0
+          maximum: 6
+          example: 1
+        hour:
+          type: integer
+          description: Hour in 24-hour format, 0 to 23.
+          minimum: 0
+          maximum: 23
+          example: 9
+        minute:
+          type: integer
+          description: Minute, 0 to 59.
+          minimum: 0
+          maximum: 59
+          example: 0
+    Photo:
+      type: object
+      description: A photo associated with a place.
       properties:
         name:
           type: string
+          description: The resource name of the photo, used to fetch the media.
+          example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+        widthPx:
+          type: integer
+          description: The maximum available width of the photo in pixels.
+          example: 1080
+        heightPx:
+          type: integer
+          description: The maximum available height of the photo in pixels.
+          example: 1080
+        authorAttributions:
+          type: array
+          description: Attribution information for the authors of this photo.
+          items:
+            $ref: '#/components/schemas/AuthorAttribution'
+    AuthorAttribution:
+      type: object
+      description: Attribution for the author of a review or photo.
+      properties:
+        displayName:
+          type: string
+          description: The name of the author.
+          example: Googleplex
+        uri:
+          type: string
+          format: uri
+          description: A link to the author's profile.
+          example: https://maps.google.com/?cid=12345678901234567890
+        photoUri:
+          type: string
+          format: uri
+          description: A link to the author's profile photo.
+          example: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+    Review:
+      type: object
+      description: A user review of a place.
+      properties:
+        name:
+          type: string
+          description: The resource name of the review.
+          example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
         rating:
           type: number
+          description: The star rating given in this review, from 1.0 to 5.0.
+          minimum: 1
+          maximum: 5
+          example: 4.5
         text:
-          type: object
-          properties:
-            text:
-              type: string
-            languageCode:
-              type: string
+          $ref: '#/components/schemas/LocalizedText'
+        originalText:
+          $ref: '#/components/schemas/LocalizedText'
+        relativePublishTimeDescription:
+          type: string
+          description: A human-readable, relative description of when the review was published.
+          example: 'Monday: 9:00 AM - 5:00 PM'
         publishTime:
           type: string
+          format: date-time
+          description: The timestamp at which the review was published.
+          example: '2026-03-15T14:30:00Z'
+        authorAttribution:
+          $ref: '#/components/schemas/AuthorAttribution'
+    PhotoMedia:
+      type: object
+      description: A reference to a place photo's media URI.
+      properties:
+        name:
+          type: string
+          description: The resource name of the photo media.
+          example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+        photoUri:
+          type: string
+          format: uri
+          description: A short-lived URI to the photo bytes.
+          example: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
     NearbySearchRequest:
       type: object
+      description: Request body for a Nearby Search.
+      required:
+      - locationRestriction
       properties:
         includedTypes:
           type: array
+          description: Place types to include in the search.
+          items:
+            type: string
+        excludedTypes:
+          type: array
+          description: Place types to exclude from the search.
           items:
             type: string
         maxResultCount:
           type: integer
+          description: The maximum number of results to return (1-20).
+          minimum: 1
+          maximum: 20
+          example: 128
+        rankPreference:
+          type: string
+          description: How results are ranked.
+          enum:
+          - POPULARITY
+          - DISTANCE
+          example: POPULARITY
+        languageCode:
+          type: string
+          description: The language in which to return results.
+          example: en
+        regionCode:
+          type: string
+          description: The region code used to format the response.
+          example: US
         locationRestriction:
           type: object
+          description: The region to search, expressed as a circle.
+          properties:
+            circle:
+              $ref: '#/components/schemas/Circle'
     TextSearchRequest:
       type: object
+      description: Request body for a Text Search.
+      required:
+      - textQuery
       properties:
         textQuery:
           type: string
+          description: The free-form text query to search for.
+          example: Google Building 40
+        includedType:
+          type: string
+          description: Restrict results to a single place type.
+          example: restaurant
         maxResultCount:
           type: integer
+          description: The maximum number of results to return (1-20).
+          minimum: 1
+          maximum: 20
+          example: 128
+        rankPreference:
+          type: string
+          description: How results are ranked.
+          enum:
+          - RELEVANCE
+          - DISTANCE
+          example: RELEVANCE
+        openNow:
+          type: boolean
+          description: Restrict results to places that are currently open.
+          example: true
+        minRating:
+          type: number
+          description: Restrict results to places with at least this average rating.
+          minimum: 0
+          maximum: 5
+          example: 4.5
+        languageCode:
+          type: string
+          description: The language in which to return results.
+          example: en
+        regionCode:
+          type: string
+          description: The region code used to format and bias the response.
+          example: US
+        locationBias:
+          type: object
+          description: The region to bias results toward, expressed as a circle.
+          properties:
+            circle:
+              $ref: '#/components/schemas/Circle'
     AutocompleteRequest:
       type: object
+      description: Request body for an Autocomplete request.
+      required:
+      - input
       properties:
         input:
           type: string
+          description: The partial text string on which to return predictions.
+          example: Googlep
+        sessionToken:
+          type: string
+          description: A session token that groups autocomplete and details requests for billing.
+          example: 0a1b2c3d-4e5f-6789-abcd-ef0123456789
+        languageCode:
+          type: string
+          description: The language in which to return predictions.
+          example: en
+        regionCode:
+          type: string
+          description: The region code used to format and bias predictions.
+          example: US
+        includedPrimaryTypes:
+          type: array
+          description: Place types to restrict predictions to.
+          items:
+            type: string
         locationBias:
           type: object
+          description: The region to bias predictions toward, expressed as a circle.
+          properties:
+            circle:
+              $ref: '#/components/schemas/Circle'
     AutocompleteResponse:
       type: object
+      description: Response from an Autocomplete request.
       properties:
         suggestions:
           type: array
+          description: A list of place and query suggestions.
           items:
-            type: object
+            $ref: '#/components/schemas/Suggestion'
+    Suggestion:
+      type: object
+      description: A single autocomplete suggestion.
+      properties:
+        placePrediction:
+          type: object
+          description: A predicted place.
+          properties:
+            place:
+              type: string
+              description: The resource name of the predicted place.
+              example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+            placeId:
+              type: string
+              description: The unique identifier of the predicted place.
+              example: ChIJN1t_tDeuEmsRUsoyG83frY4
+            text:
+              $ref: '#/components/schemas/LocalizedText'
+            structuredFormat:
+              type: object
+              description: A breakdown of the prediction into a main text and secondary text.
+              properties:
+                mainText:
+                  $ref: '#/components/schemas/LocalizedText'
+                secondaryText:
+                  $ref: '#/components/schemas/LocalizedText'
+        queryPrediction:
+          type: object
+          description: A predicted query string.
+          properties:
+            text:
+              $ref: '#/components/schemas/LocalizedText'
     SearchResponse:
       type: object
+      description: A response containing a list of places.
       properties:
         places:
           type: array
+          description: The list of places matching the request.
           items:
             $ref: '#/components/schemas/Place'
+    Error:
+      type: object
+      description: A standard Google API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: The HTTP status code.
+              example: 400
+            message:
+              type: string
+              description: A developer-facing error message.
+              example: Request contains an invalid argument.
+            status:
+              type: string
+              description: The canonical Google API error status.
+              example: INVALID_ARGUMENT
 security:
-  - ApiKeyAuth: []
+- ApiKeyAuth: []
+- ApiKeyQuery: []
+- OAuth2: []
 tags:
-  - name: Places
-  - name: Places:autocomplete
-  - name: places:searchNearby
-  - name: places:searchText
+- name: Places
+  description: Operations for retrieving place details and media.
+- name: Search
+  description: Operations for searching and autocompleting places.

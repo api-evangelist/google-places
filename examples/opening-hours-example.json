@@ -1,0 +1,20 @@
+{
+  "openNow": true,
+  "periods": [
+    {
+      "open": {
+        "day": 4,
+        "hour": 11,
+        "minute": 0
+      },
+      "close": {
+        "day": 3,
+        "hour": 18,
+        "minute": 30
+      }
+    }
+  ],
+  "weekdayDescriptions": [
+    "Monday: 9:00 AM - 5:00 PM"
+  ]
+}

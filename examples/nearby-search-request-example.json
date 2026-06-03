@@ -1,0 +1,21 @@
+{
+  "includedTypes": [
+    "restaurant"
+  ],
+  "excludedTypes": [
+    "restaurant"
+  ],
+  "maxResultCount": 2104,
+  "rankPreference": "DISTANCE",
+  "languageCode": "en",
+  "regionCode": "US",
+  "locationRestriction": {
+    "circle": {
+      "center": {
+        "latitude": -9.6506,
+        "longitude": 145.315
+      },
+      "radius": 4586.1
+    }
+  }
+}

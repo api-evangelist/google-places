@@ -1,0 +1,191 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Google Places"
+  description: >-
+    Unified taxonomy for the Google Places API (New), mapping the operational
+    dimension (OpenAPI operations, resources, schemas, parameters, enums, and
+    authentication) to the capability dimension (Naftiko REST and MCP
+    capabilities) and the personas that consume them.
+  created: "2026-06-02"
+  modified: "2026-06-02"
+
+# OPERATIONAL DIMENSION (from OpenAPI)
+operational:
+  apis:
+    - name: "Google Places API"
+      namespace: "places"
+      version: "1.0.0"
+      baseUrl: "https://places.googleapis.com/v1"
+      status: active
+  resources:
+    - name: places
+      api: "Google Places API"
+      description: "Establishments, geographic locations, and points of interest."
+      actions: [search, autocomplete, get]
+    - name: photos
+      api: "Google Places API"
+      description: "Photographic media associated with a place."
+      actions: [get]
+  actions:
+    - name: search
+      httpMethod: POST
+      pattern: query
+      description: "Find places by text query or geographic area."
+    - name: autocomplete
+      httpMethod: POST
+      pattern: query
+      description: "Return place and query predictions from partial input."
+    - name: get
+      httpMethod: GET
+      pattern: read
+      description: "Retrieve a single place or photo by identifier."
+  schemas:
+    core:
+      - name: Place
+        properties: [name, id, displayName, types, formattedAddress, location, rating, userRatingCount, priceLevel, businessStatus]
+      - name: LatLng
+        properties: [latitude, longitude]
+      - name: LocalizedText
+        properties: [text, languageCode]
+      - name: Circle
+        properties: [center, radius]
+    details:
+      - name: OpeningHours
+        properties: [openNow, periods, weekdayDescriptions]
+      - name: TimePoint
+        properties: [day, hour, minute]
+      - name: Photo
+        properties: [name, widthPx, heightPx, authorAttributions]
+      - name: Review
+        properties: [name, rating, text, publishTime, authorAttribution]
+      - name: AuthorAttribution
+        properties: [displayName, uri, photoUri]
+    requests:
+      - name: NearbySearchRequest
+        properties: [includedTypes, excludedTypes, maxResultCount, rankPreference, locationRestriction]
+      - name: TextSearchRequest
+        properties: [textQuery, includedType, maxResultCount, rankPreference, openNow, minRating, locationBias]
+      - name: AutocompleteRequest
+        properties: [input, sessionToken, includedPrimaryTypes, locationBias]
+    responses:
+      - name: SearchResponse
+        properties: [places]
+      - name: AutocompleteResponse
+        properties: [suggestions]
+      - name: Suggestion
+        properties: [placePrediction, queryPrediction]
+      - name: PhotoMedia
+        properties: [name, photoUri]
+  parameters:
+    pagination:
+      - name: maxResultCount
+        description: "Maximum number of results to return (1-20)."
+    identifiers:
+      - name: placeId
+        description: "The unique place identifier."
+      - name: photoName
+        description: "The photo resource reference."
+    filters:
+      - name: includedTypes
+        description: "Place types to include in a nearby search."
+      - name: minRating
+        description: "Minimum average rating filter for text search."
+      - name: openNow
+        description: "Restrict to places currently open."
+    measurement:
+      - name: X-Goog-FieldMask
+        description: "Field mask controlling the response shape and billing SKU."
+      - name: languageCode
+        description: "BCP-47 language for localized results."
+      - name: regionCode
+        description: "CLDR region code for formatting and biasing."
+  enums:
+    states:
+      - name: businessStatus
+        values: [BUSINESS_STATUS_UNSPECIFIED, OPERATIONAL, CLOSED_TEMPORARILY, CLOSED_PERMANENTLY]
+    pricing:
+      - name: priceLevel
+        values: [PRICE_LEVEL_UNSPECIFIED, PRICE_LEVEL_FREE, PRICE_LEVEL_INEXPENSIVE, PRICE_LEVEL_MODERATE, PRICE_LEVEL_EXPENSIVE, PRICE_LEVEL_VERY_EXPENSIVE]
+    ranking:
+      - name: rankPreference
+        values: [POPULARITY, DISTANCE, RELEVANCE]
+  authentication:
+    schemes:
+      - name: ApiKeyAuth
+        type: apiKey
+        placement: header
+        header: X-Goog-Api-Key
+        appliesTo: ["Google Places API"]
+      - name: ApiKeyQuery
+        type: apiKey
+        placement: query
+        param: key
+        appliesTo: ["Google Places API"]
+      - name: OAuth2
+        type: oauth2
+        flow: authorizationCode
+        scopes: ["https://www.googleapis.com/auth/maps-platform.places"]
+        appliesTo: ["Google Places API"]
+
+# CAPABILITY DIMENSION (from Naftiko)
+capability:
+  workflows:
+    - name: "Search"
+      file: capabilities/openapi-search.yaml
+      description: "Text search, nearby search, and autocomplete over Google's place database."
+      apis: ["Google Places API"]
+      tools: 3
+      personas: [Application Developer, Search Integrator]
+      domains: [Location Discovery]
+    - name: "Places"
+      file: capabilities/openapi-places.yaml
+      description: "Place details retrieval and place photo media."
+      apis: ["Google Places API"]
+      tools: 2
+      personas: [Application Developer, Content Enrichment Engineer]
+      domains: [Place Enrichment]
+  personas:
+    - id: application-developer
+      name: "Application Developer"
+      description: "Builds location-aware features into web and mobile applications."
+      workflows: [Search, Places]
+    - id: search-integrator
+      name: "Search Integrator"
+      description: "Wires place search and autocomplete into product search flows and forms."
+      workflows: [Search]
+    - id: content-enrichment-engineer
+      name: "Content Enrichment Engineer"
+      description: "Enriches records with place details, ratings, reviews, and photos."
+      workflows: [Places]
+  domains:
+    - name: Location Discovery
+      description: "Finding places by query, proximity, and type-ahead prediction."
+    - name: Place Enrichment
+      description: "Augmenting a known place with full details and media."
+  namespaces:
+    - consumed: openapi-search
+      restExposed: openapi-search-rest
+      mcpExposed: openapi-search-mcp
+      restPort: 8080
+      mcpPort: 9090
+    - consumed: openapi-places
+      restExposed: openapi-places-rest
+      mcpExposed: openapi-places-mcp
+      restPort: 8080
+      mcpPort: 9090
+  binds:
+    - name: GOOGLE_PLACES_API_KEY
+      description: "Google Maps Platform API key with the Places API enabled."
+      workflows: [Search, Places]
+
+# CROSS-REFERENCE
+crossReference:
+  - resource: places
+    operations: [searchTextPlaces, searchNearbyPlaces, autocompletePlaces, getPlaceDetails]
+    workflows: [Search, Places]
+    personas: [Application Developer, Search Integrator, Content Enrichment Engineer]
+  - resource: photos
+    operations: [getPlacePhoto]
+    workflows: [Places]
+    personas: [Content Enrichment Engineer]

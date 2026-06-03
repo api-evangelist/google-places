@@ -1,134 +1,120 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Google Places
+providerId: google-places
+created: '2026-05-04'
+modified: '2026-06-02'
+reconciled: true
+tags:
+  - Geolocation
+  - Google
+  - Maps
+  - Places
+  - FinOps
+  - FOCUS
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: Google Places
-providerId: google-places
-publisherName: Google Places
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - Geolocation
-  - Google
-  - Locations
-  - Maps
-  - Places
-  - Points of Interest
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the Google Places API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: Google LLC
+serviceCategory: Maps + Location
+description: >-
+  FOCUS-aligned FinOps for the Google Places API (New): pay-as-you-go per-SKU
+  metering across Essentials, Pro, and Enterprise tiers, billed through Google
+  Cloud / Google Maps Platform as usage charges with monthly free allowances on
+  Essentials SKUs.
+sources:
+  - https://developers.google.com/maps/billing-and-pricing/pricing
+  - https://developers.google.com/maps/documentation/places/web-service/usage-and-billing
+  - https://cloud.google.com/billing/docs
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Pay-As-You-Go
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
-    - Purchase
-    - Tax
     - Credit
+    - Tax
     - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
-  ServiceName: Google Places
-  ServiceCategory: Developer Tools / API
-  ProviderName: Google Places
-  PublisherName: Google Places
-  InvoiceIssuerName: Google Places
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: Places API
+  ServiceCategory: Maps + Location
+  ProviderName: Google
+  PublisherName: Google LLC
+  InvoiceIssuerName: Google LLC
   BillingCurrency: USD
   ChargeCategory: Usage
+  PricingUnit: 1000 calls
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: autocomplete_requests
+    description: Autocomplete predictions billed per request (Essentials SKU).
     unit: request
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
+      - sku
       - tier
       - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - project
+  - name: place_details_requests
+    description: Place Details requests, billed by field-mask tier (Essentials/Pro/Enterprise).
+    unit: request
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
+      - sku
       - tier
-apis:
-  - name: Google Places API
-    baseURL: https://places.googleapis.com/v1
-    tags:
-      - Locations
-      - Maps
-      - Places
-      - Search
-    serviceName: Google Places API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - region
+      - project
+  - name: text_search_requests
+    description: Text Search requests, billed at Pro or Enterprise SKU by field mask.
+    unit: request
+    aggregation: sum
+    dimensions:
+      - sku
+      - tier
+      - region
+      - project
+  - name: nearby_search_requests
+    description: Nearby Search requests, billed at Pro or Enterprise SKU by field mask.
+    unit: request
+    aggregation: sum
+    dimensions:
+      - sku
+      - tier
+      - region
+      - project
+  - name: place_photo_requests
+    description: Place Photos media requests (Enterprise Place Details Photos SKU).
+    unit: request
+    aggregation: sum
+    dimensions:
+      - sku
+      - region
+      - project
+principles:
+  - name: Visibility
+    description: >-
+      Track per-SKU Places consumption in the Google Cloud Console Maps Platform
+      metrics dashboards and export detailed usage and cost via Cloud Billing
+      BigQuery export.
+  - name: Allocation
+    description: >-
+      Separate API keys and Google Cloud projects per team, environment, or
+      application, and apply billing labels so Places spend is attributable in
+      FOCUS-formatted billing exports.
+  - name: Optimization
+    description: >-
+      Send the narrowest X-Goog-FieldMask that satisfies the use case to stay in
+      the cheaper Essentials/Pro tier, use Autocomplete session tokens to bundle
+      keystrokes plus a details call into one session, and cache Place IDs and
+      basic data (which is unlimited and free) instead of re-querying.
+  - name: Accountability
+    description: >-
+      Set per-API daily quota caps and Cloud Billing budget alerts per project,
+      and assign a budget owner who reviews the monthly Maps Platform usage
+      report.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

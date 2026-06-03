@@ -4,146 +4,147 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Google Places
 providerId: google-places
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-06-02'
+reconciled: true
 tags:
   - Geolocation
   - Google
-  - Locations
   - Maps
   - Places
+  - Usage-Based
   - Points of Interest
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: >-
+  Google Places API (New) is billed pay-as-you-go under the Google Maps Platform
+  per-SKU pricing model, organized into Essentials, Pro, and Enterprise tiers.
+  Each request type maps to a distinct SKU billed per 1,000 calls with
+  volume-based discounts at higher monthly call counts. Most Essentials SKUs
+  include 10,000 free calls per month; basic place data and ID-only responses are
+  unlimited at no charge. The X-Goog-FieldMask header you send determines which
+  SKU tier (Essentials / Pro / Enterprise) a Places request is billed at. Prices
+  below are list per-1,000-call rates for US/Canada and reflect the high end of
+  each volume band; verify against the live pricing page for current rates and
+  your region.
+sources:
+  - https://developers.google.com/maps/billing-and-pricing/pricing
+  - https://developers.google.com/maps/documentation/places/web-service/usage-and-billing
 plans:
-  - id: google-places-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Google Places API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: google-places-essentials
+    name: Essentials
+    type: usage-based
+    description: Lowest-cost SKU tier covering Autocomplete and Place Details (Essentials field mask).
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://places.googleapis.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://places.googleapis.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Google Places API
-  - id: google-places-pro
-    name: Professional
-    type: paid
-    description: Production tier for Google Places. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://places.googleapis.com/v1
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://places.googleapis.com/v1
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Autocomplete Requests
+        description: Per-request autocomplete predictions (Essentials SKU 4EF4-B17C-B31A).
+        name: autocomplete_requests
         type: metered
-        metric: requests
+        metric: request
         limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1000
+        price: '$2.83'
+        userMultiplied: false
+      - label: Place Details (Essentials)
+        description: Place Details with Essentials field mask (SKU 6E05-E1C3-8D85).
+        name: place_details_essentials
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1000
+        price: '$5.00'
+        userMultiplied: false
+      - label: Free Monthly Calls
+        description: Most Essentials SKUs include 10,000 free events per month.
+        name: free_monthly_calls
+        type: quota
+        metric: request
+        limit: 10000
         timeFrame: month
         geo: global
-        domains:
-          - https://places.googleapis.com/v1
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: '0.00'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Google Places API
+      - name: Autocomplete
+      - name: Place Details (IDs Only)
+      - name: Text Search (IDs Only)
+      - name: Public Documentation
+  - id: google-places-pro
+    name: Pro
+    type: usage-based
+    description: Mid-tier SKUs for Nearby Search, Text Search, and Place Details (Pro field mask).
+    entries:
+      - label: Nearby Search
+        description: Nearby Search Pro SKU (99F9-A108-83A6).
+        name: nearby_search
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1000
+        price: '$32.00'
+        userMultiplied: false
+      - label: Text Search
+        description: Text Search Pro SKU (4FDA-34B1-A910).
+        name: text_search
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1000
+        price: '$32.00'
+        userMultiplied: false
+    elements:
+      - name: Nearby Search
+      - name: Text Search
+      - name: Place Details (Pro)
   - id: google-places-enterprise
     name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Google Places. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+    type: usage-based
+    description: Highest-data SKUs including Atmosphere data (reviews, ratings) and Place Details Photos.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Nearby Search (Enterprise)
+        description: Nearby Search Enterprise SKU (772E-9975-BE34).
+        name: nearby_search_enterprise
+        type: metered
+        metric: request
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://places.googleapis.com/v1
-        unit: 1
-        price: custom
+        timeFrame: usage
+        geo: US
+        unit: 1000
+        price: '$35.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://places.googleapis.com/v1
-        unit: 1
-        price: custom
+      - label: Text Search (Enterprise)
+        description: Text Search Enterprise SKU (E967-44BC-B44D).
+        name: text_search_enterprise
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1000
+        price: '$35.00'
+        userMultiplied: false
+      - label: Place Details Photos
+        description: Place Photos media SKU (DCD1-FE97-8C71).
+        name: place_details_photos
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1000
+        price: '$7.00'
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Google Places API
+      - name: Nearby Search (with Atmosphere data)
+      - name: Text Search (with Atmosphere data)
+      - name: Place Details (with Atmosphere data)
+      - name: Place Photos
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

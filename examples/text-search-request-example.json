@@ -1,0 +1,19 @@
+{
+  "textQuery": "Google Building 40",
+  "includedType": "restaurant",
+  "maxResultCount": 1328,
+  "rankPreference": "DISTANCE",
+  "openNow": true,
+  "minRating": 4.0,
+  "languageCode": "en",
+  "regionCode": "US",
+  "locationBias": {
+    "circle": {
+      "center": {
+        "latitude": 49.1488,
+        "longitude": -115.8557
+      },
+      "radius": 4611.3
+    }
+  }
+}

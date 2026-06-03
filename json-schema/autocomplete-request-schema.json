@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/json-schema/autocomplete-request-schema.json",
+  "title": "AutocompleteRequest",
+  "description": "Request body for an Autocomplete request.",
+  "type": "object",
+  "required": [
+    "input"
+  ],
+  "properties": {
+    "input": {
+      "type": "string",
+      "description": "The partial text string on which to return predictions.",
+      "example": "Googlep"
+    },
+    "sessionToken": {
+      "type": "string",
+      "description": "A session token that groups autocomplete and details requests for billing.",
+      "example": "0a1b2c3d-4e5f-6789-abcd-ef0123456789"
+    },
+    "languageCode": {
+      "type": "string",
+      "description": "The language in which to return predictions.",
+      "example": "en"
+    },
+    "regionCode": {
+      "type": "string",
+      "description": "The region code used to format and bias predictions.",
+      "example": "US"
+    },
+    "includedPrimaryTypes": {
+      "type": "array",
+      "description": "Place types to restrict predictions to.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "locationBias": {
+      "type": "object",
+      "description": "The region to bias predictions toward, expressed as a circle.",
+      "properties": {
+        "circle": {
+          "$ref": "#/components/schemas/Circle"
+        }
+      }
+    }
+  }
+}
