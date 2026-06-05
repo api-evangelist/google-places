@@ -1,7 +1,8 @@
 name: Google Places
-description: The Google Places API is a service that accepts HTTP requests for location data through a variety of methods.
-  It returns formatted location data and imagery about establishments, geographic locations, or prominent points of interest.
-  Supports nearby search, text search, place details, place photos, and autocomplete.
+description: >-
+  The Google Places API is a service that accepts HTTP requests for location data through a variety of methods. It
+  returns formatted location data and imagery about establishments, geographic locations, or prominent points of
+  interest. Supports nearby search, text search, place details, place photos, and autocomplete.
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/apis.yml
 created: '2026-03-13'
@@ -17,48 +18,45 @@ tags:
   - Points of Interest
 apis:
   - name: Google Places API
-    description: The Places API (New) provides programmatic access to Google's database of places, including establishments,
-      geographic locations, and points of interest. It supports nearby search, text search, place details, photos, and autocomplete
-      predictions.
+    description: >-
+      The Places API (New) provides programmatic access to Google's database of places, including establishments,
+      geographic locations, and points of interest. It supports nearby search, text search, place details, photos, and
+      autocomplete predictions.
     humanURL: https://developers.google.com/maps/documentation/places/web-service
     baseURL: https://places.googleapis.com/v1
     properties:
-    - type: OpenAPI
-      url: openapi/openapi.yml
-    - type: JSONSchema
-      url: json-schema/Place.json
-    - type: NaftikoCapability
-      url: capabilities/openapi-search.yaml
-    - type: NaftikoCapability
-      url: capabilities/openapi-places.yaml
-    - type: SDK
-      url: https://developers.google.com/maps/documentation/places/android-sdk/overview
-      title: Android SDK
-    - type: SDK
-      url: https://developers.google.com/maps/documentation/places/ios-sdk/overview
-      title: iOS SDK
-    - type: SDK
-      url: https://developers.google.com/maps/documentation/javascript/places
-      title: JavaScript Library
-    - type: SDK
-      url: https://www.npmjs.com/package/@googlemaps/google-maps-services-js
-      title: Node.js Client
-    - type: SDK
-      url: https://pypi.org/project/googlemaps/
-      title: Python Client
-    - type: SDK
-      url: https://github.com/googlemaps/google-maps-services-java
-      title: Java Client
-    - type: CodeExamples
-      url: https://github.com/googlemaps/js-samples
-      title: JavaScript Samples
-    - type: Documentation
-      url: https://developers.google.com/maps/documentation/places/web-service
+      - type: OpenAPI
+        url: openapi/openapi.yml
+      - type: JSONSchema
+        url: json-schema/Place.json
+      - type: SDK
+        url: https://developers.google.com/maps/documentation/places/android-sdk/overview
+        title: Android SDK
+      - type: SDK
+        url: https://developers.google.com/maps/documentation/places/ios-sdk/overview
+        title: iOS SDK
+      - type: SDK
+        url: https://developers.google.com/maps/documentation/javascript/places
+        title: JavaScript Library
+      - type: SDK
+        url: https://www.npmjs.com/package/@googlemaps/google-maps-services-js
+        title: Node.js Client
+      - type: SDK
+        url: https://pypi.org/project/googlemaps/
+        title: Python Client
+      - type: SDK
+        url: https://github.com/googlemaps/google-maps-services-java
+        title: Java Client
+      - type: CodeExamples
+        url: https://github.com/googlemaps/js-samples
+        title: JavaScript Samples
+      - type: Documentation
+        url: https://developers.google.com/maps/documentation/places/web-service
     tags:
-    - Locations
-    - Maps
-    - Places
-    - Search
+      - Locations
+      - Maps
+      - Places
+      - Search
 common:
   - type: GitHubOrganization
     url: https://github.com/googlemaps
@@ -90,11 +88,17 @@ common:
     url: https://cloud.google.com/maps-platform/terms
 features:
   - name: Text Search
-    description: Search for places using free-form text queries such as "pizza near Boston" and return matching establishments and points of interest.
+    description: >-
+      Search for places using free-form text queries such as "pizza near Boston" and return matching establishments and
+      points of interest.
   - name: Nearby Search
-    description: Find places within a specified geographic radius, optionally filtered by place type, ranked by distance or prominence.
+    description: >-
+      Find places within a specified geographic radius, optionally filtered by place type, ranked by distance or
+      prominence.
   - name: Place Details
-    description: Retrieve comprehensive information about a place including address, opening hours, ratings, reviews, contact details, and photos.
+    description: >-
+      Retrieve comprehensive information about a place including address, opening hours, ratings, reviews, contact
+      details, and photos.
   - name: Place Photos
     description: Access high-quality photographic content associated with a place from Google's database.
   - name: Autocomplete
