@@ -3,7 +3,7 @@ description: >-
   The Google Places API is a service that accepts HTTP requests for location data through a variety of methods. It
   returns formatted location data and imagery about establishments, geographic locations, or prominent points of
   interest. Supports nearby search, text search, place details, place photos, and autocomplete.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/apis.yml
 created: '2026-03-13'
 modified: '2026-06-02'
