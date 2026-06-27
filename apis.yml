@@ -29,22 +29,22 @@ apis:
         url: openapi/openapi.yml
       - type: JSONSchema
         url: json-schema/Place.json
-      - type: SDK
+      - type: SDKs
         url: https://developers.google.com/maps/documentation/places/android-sdk/overview
         title: Android SDK
-      - type: SDK
+      - type: SDKs
         url: https://developers.google.com/maps/documentation/places/ios-sdk/overview
         title: iOS SDK
-      - type: SDK
+      - type: SDKs
         url: https://developers.google.com/maps/documentation/javascript/places
         title: JavaScript Library
-      - type: SDK
+      - type: SDKs
         url: https://www.npmjs.com/package/@googlemaps/google-maps-services-js
         title: Node.js Client
-      - type: SDK
+      - type: SDKs
         url: https://pypi.org/project/googlemaps/
         title: Python Client
-      - type: SDK
+      - type: SDKs
         url: https://github.com/googlemaps/google-maps-services-java
         title: Java Client
       - type: CodeExamples
