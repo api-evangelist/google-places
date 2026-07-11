@@ -58,6 +58,12 @@ apis:
       - Places
       - Search
 common:
+  - type: VulnerabilityDisclosure
+    url: security/google-places-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/google-places-domain-security.yml
+  - type: Authentication
+    url: authentication/google-places-authentication.yml
   - type: OAuthScopes
     url: scopes/google-places-scopes.yml
   - type: GitHubOrganization
