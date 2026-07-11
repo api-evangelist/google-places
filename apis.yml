@@ -58,6 +58,8 @@ apis:
       - Places
       - Search
 common:
+  - type: OAuthScopes
+    url: scopes/google-places-scopes.yml
   - type: GitHubOrganization
     url: https://github.com/googlemaps
   - type: Tools

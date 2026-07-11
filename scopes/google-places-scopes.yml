@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+    tokenUrl: https://oauth2.googleapis.com/token
+  description: OAuth 2.0 bearer token authorization for the Google Maps Platform.
+scopes:
+- scope: https://www.googleapis.com/auth/maps-platform.places
+  description: Access the Places API
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.yml
