@@ -58,6 +58,8 @@ apis:
       - Places
       - Search
 common:
+  - type: AgenticAccess
+    url: agentic-access/google-places-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/google-places-vulnerability-disclosure.yml
   - type: DomainSecurity
