@@ -1,0 +1,495 @@
+openapi: 3.1.0
+info:
+  title: Google API (New) Places API
+  description: The Places API (New) is a service that accepts HTTP requests for location data through a variety of methods. It returns formatted location data and imagery about establishments, geographic locations, or prominent points of interest. The API supports Text Search, Nearby Search, Place Details, Place Photos, and Autocomplete. Responses on the New API are shaped by the required X-Goog-FieldMask header, which controls exactly which fields are returned and which billing SKU applies.
+  version: 1.0.0
+  contact:
+    name: Google Maps Platform
+    url: https://developers.google.com/maps/documentation/places/web-service
+  license:
+    name: Google APIs Terms of Service
+    url: https://developers.google.com/maps/terms
+  x-last-validated: '2026-06-02'
+servers:
+- url: https://places.googleapis.com/v1
+  description: Google Places API (New) production server
+security:
+- ApiKeyAuth: []
+- ApiKeyQuery: []
+- OAuth2: []
+tags:
+- name: Places
+  description: Operations for retrieving place details and media.
+paths:
+  /places/{placeId}:
+    get:
+      operationId: getPlaceDetails
+      summary: Google Places Get Place Details
+      description: Retrieve comprehensive information about a specific place by its place ID, including address, location, opening hours, ratings, reviews, contact details, and photos.
+      parameters:
+      - name: placeId
+        in: path
+        required: true
+        description: The unique place identifier returned by search or autocomplete.
+        schema:
+          type: string
+        example: ChIJN1t_tDeuEmsRUsoyG83frY4
+      - $ref: '#/components/parameters/FieldMask'
+      - name: languageCode
+        in: query
+        description: The language in which to return results (BCP-47 language tag).
+        schema:
+          type: string
+        example: en
+      - name: regionCode
+        in: query
+        description: The region code, specified as a CLDR two-character region code.
+        schema:
+          type: string
+        example: US
+      responses:
+        '200':
+          description: Detailed information about the requested place.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+              examples:
+                GetPlaceDetails200Example:
+                  summary: Default getPlaceDetails 200 response
+                  x-microcks-default: true
+                  value:
+                    name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                    id: ChIJN1t_tDeuEmsRUsoyG83frY4
+                    displayName:
+                      text: Google Building 40
+                      languageCode: en
+                    types:
+                    - restaurant
+                    primaryType: restaurant
+                    formattedAddress: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+                    shortFormattedAddress: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+                    location:
+                      latitude: 37.422
+                      longitude: -122.0841
+                    rating: 4.5
+                    userRatingCount: 128
+                    priceLevel: PRICE_LEVEL_FREE
+                    businessStatus: OPERATIONAL
+                    nationalPhoneNumber: +1 650-253-0000
+                    internationalPhoneNumber: +1 650-253-0000
+                    websiteUri: https://maps.google.com/?cid=12345678901234567890
+                    googleMapsUri: https://maps.google.com/?cid=12345678901234567890
+                    regularOpeningHours:
+                      openNow: true
+                      periods:
+                      - open:
+                          day: 1
+                          hour: 9
+                          minute: 0
+                        close:
+                          day: 1
+                          hour: 9
+                          minute: 0
+                      weekdayDescriptions:
+                      - 'Monday: 9:00 AM - 5:00 PM'
+                    photos:
+                    - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                      widthPx: 1080
+                      heightPx: 1080
+                      authorAttributions:
+                      - displayName: Googleplex
+                        uri: https://maps.google.com/?cid=12345678901234567890
+                        photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+                    reviews:
+                    - name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                      rating: 4.5
+                      text:
+                        text: Google Building 40
+                        languageCode: en
+                      originalText:
+                        text: Google Building 40
+                        languageCode: en
+                      relativePublishTimeDescription: 'Monday: 9:00 AM - 5:00 PM'
+                      publishTime: '2026-03-15T14:30:00Z'
+                      authorAttribution:
+                        displayName: Googleplex
+                        uri: https://maps.google.com/?cid=12345678901234567890
+                        photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+        '404':
+          description: The requested place was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                GetPlaceDetails404Example:
+                  summary: Default getPlaceDetails 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      code: 400
+                      message: Request contains an invalid argument.
+                      status: INVALID_ARGUMENT
+      tags:
+      - Places
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /places/{placeId}/photos/{photoName}/media:
+    get:
+      operationId: getPlacePhoto
+      summary: Google Places Get Place Photo
+      description: Retrieve a photo for a place. The photo is referenced by the photo resource name returned in a Place Details, Nearby Search, or Text Search response. Returns the photo media or a redirect to the image bytes.
+      parameters:
+      - name: placeId
+        in: path
+        required: true
+        description: The unique place identifier.
+        schema:
+          type: string
+        example: ChIJN1t_tDeuEmsRUsoyG83frY4
+      - name: photoName
+        in: path
+        required: true
+        description: The photo resource reference returned in a place's photos array (the segment following photos/).
+        schema:
+          type: string
+        example: AeJbb3eJ_example_reference
+      - name: maxHeightPx
+        in: query
+        description: Maximum desired height of the image in pixels (1-4800).
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 4800
+        example: 1080
+      - name: maxWidthPx
+        in: query
+        description: Maximum desired width of the image in pixels (1-4800).
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 4800
+        example: 1080
+      - name: skipHttpRedirect
+        in: query
+        description: If true, returns a JSON response with the photo URI instead of redirecting.
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '200':
+          description: The photo media response, or a JSON photo reference when skipHttpRedirect is true.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhotoMedia'
+              examples:
+                GetPlacePhoto200Example:
+                  summary: Default getPlacePhoto 200 response
+                  x-microcks-default: true
+                  value:
+                    name: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+                    photoUri: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+      tags:
+      - Places
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    FieldMask:
+      name: X-Goog-FieldMask
+      in: header
+      required: true
+      description: Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).
+      schema:
+        type: string
+  schemas:
+    AuthorAttribution:
+      type: object
+      description: Attribution for the author of a review or photo.
+      properties:
+        displayName:
+          type: string
+          description: The name of the author.
+          example: Googleplex
+        uri:
+          type: string
+          format: uri
+          description: A link to the author's profile.
+          example: https://maps.google.com/?cid=12345678901234567890
+        photoUri:
+          type: string
+          format: uri
+          description: A link to the author's profile photo.
+          example: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+    OpeningHours:
+      type: object
+      description: Information about the operating hours of a place.
+      properties:
+        openNow:
+          type: boolean
+          description: Whether the place is currently open.
+          example: true
+        periods:
+          type: array
+          description: The periods that this place is open during the week.
+          items:
+            type: object
+            properties:
+              open:
+                $ref: '#/components/schemas/TimePoint'
+              close:
+                $ref: '#/components/schemas/TimePoint'
+        weekdayDescriptions:
+          type: array
+          description: Localized strings describing the opening hours for each day of the week.
+          items:
+            type: string
+    LocalizedText:
+      type: object
+      description: Localized text in a particular language.
+      properties:
+        text:
+          type: string
+          description: The localized text value.
+          example: Google Building 40
+        languageCode:
+          type: string
+          description: The BCP-47 language code of the text.
+          example: en
+    PhotoMedia:
+      type: object
+      description: A reference to a place photo's media URI.
+      properties:
+        name:
+          type: string
+          description: The resource name of the photo media.
+          example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+        photoUri:
+          type: string
+          format: uri
+          description: A short-lived URI to the photo bytes.
+          example: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
+    Review:
+      type: object
+      description: A user review of a place.
+      properties:
+        name:
+          type: string
+          description: The resource name of the review.
+          example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+        rating:
+          type: number
+          description: The star rating given in this review, from 1.0 to 5.0.
+          minimum: 1
+          maximum: 5
+          example: 4.5
+        text:
+          $ref: '#/components/schemas/LocalizedText'
+        originalText:
+          $ref: '#/components/schemas/LocalizedText'
+        relativePublishTimeDescription:
+          type: string
+          description: A human-readable, relative description of when the review was published.
+          example: 'Monday: 9:00 AM - 5:00 PM'
+        publishTime:
+          type: string
+          format: date-time
+          description: The timestamp at which the review was published.
+          example: '2026-03-15T14:30:00Z'
+        authorAttribution:
+          $ref: '#/components/schemas/AuthorAttribution'
+    LatLng:
+      type: object
+      description: A latitude/longitude pair expressed in degrees.
+      properties:
+        latitude:
+          type: number
+          description: Latitude in degrees, in the range -90.0 to 90.0.
+          minimum: -90
+          maximum: 90
+          example: 37.422
+        longitude:
+          type: number
+          description: Longitude in degrees, in the range -180.0 to 180.0.
+          minimum: -180
+          maximum: 180
+          example: -122.0841
+    Place:
+      type: object
+      description: A place returned by the Google Places API, such as an establishment or point of interest.
+      properties:
+        name:
+          type: string
+          description: The resource name of the place, in the form places/{placeId}.
+          example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+        id:
+          type: string
+          description: The unique identifier of the place.
+          example: ChIJN1t_tDeuEmsRUsoyG83frY4
+        displayName:
+          $ref: '#/components/schemas/LocalizedText'
+        types:
+          type: array
+          description: A set of type tags describing this place.
+          items:
+            type: string
+        primaryType:
+          type: string
+          description: The primary type of the given result.
+          example: restaurant
+        formattedAddress:
+          type: string
+          description: A full, human-readable address for this place.
+          example: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+        shortFormattedAddress:
+          type: string
+          description: A short, human-readable address for this place.
+          example: 1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA
+        location:
+          $ref: '#/components/schemas/LatLng'
+        rating:
+          type: number
+          description: The average user rating for this place, from 1.0 to 5.0.
+          minimum: 1
+          maximum: 5
+          example: 4.5
+        userRatingCount:
+          type: integer
+          description: The total number of user reviews and ratings for this place.
+          example: 128
+        priceLevel:
+          type: string
+          description: The price level of the place.
+          enum:
+          - PRICE_LEVEL_UNSPECIFIED
+          - PRICE_LEVEL_FREE
+          - PRICE_LEVEL_INEXPENSIVE
+          - PRICE_LEVEL_MODERATE
+          - PRICE_LEVEL_EXPENSIVE
+          - PRICE_LEVEL_VERY_EXPENSIVE
+          example: PRICE_LEVEL_FREE
+        businessStatus:
+          type: string
+          description: The operational status of the business at this location.
+          enum:
+          - BUSINESS_STATUS_UNSPECIFIED
+          - OPERATIONAL
+          - CLOSED_TEMPORARILY
+          - CLOSED_PERMANENTLY
+          example: OPERATIONAL
+        nationalPhoneNumber:
+          type: string
+          description: A human-readable phone number in national format.
+          example: +1 650-253-0000
+        internationalPhoneNumber:
+          type: string
+          description: A human-readable phone number in international format.
+          example: +1 650-253-0000
+        websiteUri:
+          type: string
+          format: uri
+          description: The authoritative website for this place.
+          example: https://maps.google.com/?cid=12345678901234567890
+        googleMapsUri:
+          type: string
+          format: uri
+          description: A URI providing a link to this place on Google Maps.
+          example: https://maps.google.com/?cid=12345678901234567890
+        regularOpeningHours:
+          $ref: '#/components/schemas/OpeningHours'
+        photos:
+          type: array
+          description: Photos associated with this place.
+          items:
+            $ref: '#/components/schemas/Photo'
+        reviews:
+          type: array
+          description: Reviews about this place.
+          items:
+            $ref: '#/components/schemas/Review'
+    Photo:
+      type: object
+      description: A photo associated with a place.
+      properties:
+        name:
+          type: string
+          description: The resource name of the photo, used to fetch the media.
+          example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
+        widthPx:
+          type: integer
+          description: The maximum available width of the photo in pixels.
+          example: 1080
+        heightPx:
+          type: integer
+          description: The maximum available height of the photo in pixels.
+          example: 1080
+        authorAttributions:
+          type: array
+          description: Attribution information for the authors of this photo.
+          items:
+            $ref: '#/components/schemas/AuthorAttribution'
+    TimePoint:
+      type: object
+      description: A point in time when a place opens or closes.
+      properties:
+        day:
+          type: integer
+          description: Day of the week, 0 (Sunday) to 6 (Saturday).
+          minimum: 0
+          maximum: 6
+          example: 1
+        hour:
+          type: integer
+          description: Hour in 24-hour format, 0 to 23.
+          minimum: 0
+          maximum: 23
+          example: 9
+        minute:
+          type: integer
+          description: Minute, 0 to 59.
+          minimum: 0
+          maximum: 59
+          example: 0
+    Error:
+      type: object
+      description: A standard Google API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: The HTTP status code.
+              example: 400
+            message:
+              type: string
+              description: A developer-facing error message.
+              example: Request contains an invalid argument.
+            status:
+              type: string
+              description: The canonical Google API error status.
+              example: INVALID_ARGUMENT
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Goog-Api-Key
+      description: Google Maps Platform API key passed in the X-Goog-Api-Key header.
+    ApiKeyQuery:
+      type: apiKey
+      in: query
+      name: key
+      description: Google Maps Platform API key passed as the key query parameter.
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 bearer token authorization for the Google Maps Platform.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/maps-platform.places: Access the Places API
