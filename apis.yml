@@ -3,7 +3,20 @@ description: >-
   The Google Places API is a service that accepts HTTP requests for location data through a variety of methods. It
   returns formatted location data and imagery about establishments, geographic locations, or prominent points of
   interest. Supports nearby search, text search, place details, place photos, and autocomplete.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/google-places.png
 url: https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/apis.yml
 created: '2026-03-13'
 modified: '2026-06-02'
@@ -17,46 +30,62 @@ tags:
   - Places
   - Points of Interest
 apis:
-  - name: Google Places API
-    description: >-
-      The Places API (New) provides programmatic access to Google's database of places, including establishments,
-      geographic locations, and points of interest. It supports nearby search, text search, place details, photos, and
-      autocomplete predictions.
-    humanURL: https://developers.google.com/maps/documentation/places/web-service
-    baseURL: https://places.googleapis.com/v1
-    properties:
-      - type: OpenAPI
-        url: openapi/openapi.yml
-      - type: JSONSchema
-        url: json-schema/Place.json
-      - type: SDKs
-        url: https://developers.google.com/maps/documentation/places/android-sdk/overview
-        title: Android SDK
-      - type: SDKs
-        url: https://developers.google.com/maps/documentation/places/ios-sdk/overview
-        title: iOS SDK
-      - type: SDKs
-        url: https://developers.google.com/maps/documentation/javascript/places
-        title: JavaScript Library
-      - type: SDKs
-        url: https://www.npmjs.com/package/@googlemaps/google-maps-services-js
-        title: Node.js Client
-      - type: SDKs
-        url: https://pypi.org/project/googlemaps/
-        title: Python Client
-      - type: SDKs
-        url: https://github.com/googlemaps/google-maps-services-java
-        title: Java Client
-      - type: CodeExamples
-        url: https://github.com/googlemaps/js-samples
-        title: JavaScript Samples
-      - type: Documentation
-        url: https://developers.google.com/maps/documentation/places/web-service
-    tags:
-      - Locations
-      - Maps
-      - Places
-      - Search
+- aid: google-places:google-places-places-api
+  name: Google Places Places API
+  description: Operations for retrieving place details and media.
+  humanURL: https://developers.google.com/maps/documentation/places/web-service
+  baseURL: https://places.googleapis.com/v1
+  tags:
+  - Places
+  properties:
+  - type: OpenAPI
+    url: openapi/google-places-places-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/Place.json
+  - type: SDKs
+    url: https://developers.google.com/maps/documentation/places/android-sdk/overview
+  - type: SDKs
+    url: https://developers.google.com/maps/documentation/places/ios-sdk/overview
+  - type: SDKs
+    url: https://developers.google.com/maps/documentation/javascript/places
+  - type: SDKs
+    url: https://www.npmjs.com/package/@googlemaps/google-maps-services-js
+  - type: SDKs
+    url: https://pypi.org/project/googlemaps/
+  - type: SDKs
+    url: https://github.com/googlemaps/google-maps-services-java
+  - type: CodeExamples
+    url: https://github.com/googlemaps/js-samples
+  - type: Documentation
+    url: https://developers.google.com/maps/documentation/places/web-service
+- aid: google-places:google-places-search-api
+  name: Google Places Search API
+  description: Operations for searching and autocompleting places.
+  humanURL: https://developers.google.com/maps/documentation/places/web-service
+  baseURL: https://places.googleapis.com/v1
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/google-places-search-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/Place.json
+  - type: SDKs
+    url: https://developers.google.com/maps/documentation/places/android-sdk/overview
+  - type: SDKs
+    url: https://developers.google.com/maps/documentation/places/ios-sdk/overview
+  - type: SDKs
+    url: https://developers.google.com/maps/documentation/javascript/places
+  - type: SDKs
+    url: https://www.npmjs.com/package/@googlemaps/google-maps-services-js
+  - type: SDKs
+    url: https://pypi.org/project/googlemaps/
+  - type: SDKs
+    url: https://github.com/googlemaps/google-maps-services-java
+  - type: CodeExamples
+    url: https://github.com/googlemaps/js-samples
+  - type: Documentation
+    url: https://developers.google.com/maps/documentation/places/web-service
 common:
   - type: AgenticAccess
     url: agentic-access/google-places-agentic-access.yml
