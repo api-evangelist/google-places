@@ -1,0 +1,16 @@
+{
+  "provider": "google-places",
+  "sources": [
+    "google-places-places-api-openapi.yml",
+    "google-places-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "google-places-places-api-openapi.yml",
+    "google-places-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
