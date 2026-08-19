@@ -1,0 +1,394 @@
+{
+  "item": [
+    {
+      "id": "2a08d073-cc3c-4621-8d78-f7499635eb61",
+      "name": "Places",
+      "description": {
+        "content": "Operations for retrieving place details and media.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e6c63560-953f-4b04-bb78-1a96df314977",
+          "name": "Google Places Get Place Details",
+          "request": {
+            "name": "Google Places Get Place Details",
+            "description": {
+              "content": "Retrieve comprehensive information about a specific place by its place ID, including address, location, opening hours, ratings, reviews, contact details, and photos.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "places",
+                ":placeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "languageCode",
+                  "value": "<string>",
+                  "description": "The language in which to return results (BCP-47 language tag)."
+                },
+                {
+                  "disabled": false,
+                  "key": "regionCode",
+                  "value": "<string>",
+                  "description": "The region code, specified as a CLDR two-character region code."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "placeId",
+                  "description": "(Required) The unique place identifier returned by search or autocomplete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
+                "key": "X-Goog-FieldMask",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fd97dbc7-34b7-49a4-9406-b65945f49d94",
+              "name": "Detailed information about the requested place.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "languageCode",
+                      "value": "en"
+                    },
+                    {
+                      "key": "regionCode",
+                      "value": "US"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) The unique place identifier returned by search or autocomplete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
+                    "key": "X-Goog-FieldMask",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n  \"id\": \"ChIJN1t_tDeuEmsRUsoyG83frY4\",\n  \"displayName\": {\n    \"text\": \"Google Building 40\",\n    \"languageCode\": \"en\"\n  },\n  \"types\": [\n    \"restaurant\"\n  ],\n  \"primaryType\": \"restaurant\",\n  \"formattedAddress\": \"1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\",\n  \"shortFormattedAddress\": \"1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\",\n  \"location\": {\n    \"latitude\": 37.422,\n    \"longitude\": -122.0841\n  },\n  \"rating\": 4.5,\n  \"userRatingCount\": 128,\n  \"priceLevel\": \"PRICE_LEVEL_FREE\",\n  \"businessStatus\": \"OPERATIONAL\",\n  \"nationalPhoneNumber\": \"+1 650-253-0000\",\n  \"internationalPhoneNumber\": \"+1 650-253-0000\",\n  \"websiteUri\": \"https://maps.google.com/?cid=12345678901234567890\",\n  \"googleMapsUri\": \"https://maps.google.com/?cid=12345678901234567890\",\n  \"regularOpeningHours\": {\n    \"openNow\": true,\n    \"periods\": [\n      {\n        \"open\": {\n          \"day\": 1,\n          \"hour\": 9,\n          \"minute\": 0\n        },\n        \"close\": {\n          \"day\": 1,\n          \"hour\": 9,\n          \"minute\": 0\n        }\n      }\n    ],\n    \"weekdayDescriptions\": [\n      \"Monday: 9:00 AM - 5:00 PM\"\n    ]\n  },\n  \"photos\": [\n    {\n      \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n      \"widthPx\": 1080,\n      \"heightPx\": 1080,\n      \"authorAttributions\": [\n        {\n          \"displayName\": \"Googleplex\",\n          \"uri\": \"https://maps.google.com/?cid=12345678901234567890\",\n          \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n        }\n      ]\n    }\n  ],\n  \"reviews\": [\n    {\n      \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n      \"rating\": 4.5,\n      \"text\": {\n        \"text\": \"Google Building 40\",\n        \"languageCode\": \"en\"\n      },\n      \"originalText\": {\n        \"text\": \"Google Building 40\",\n        \"languageCode\": \"en\"\n      },\n      \"relativePublishTimeDescription\": \"Monday: 9:00 AM - 5:00 PM\",\n      \"publishTime\": \"2026-03-15T14:30:00Z\",\n      \"authorAttribution\": {\n        \"displayName\": \"Googleplex\",\n        \"uri\": \"https://maps.google.com/?cid=12345678901234567890\",\n        \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57effbbd-b058-4bb6-9cef-54f337d6d84e",
+              "name": "The requested place was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "languageCode",
+                      "value": "en"
+                    },
+                    {
+                      "key": "regionCode",
+                      "value": "US"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) The unique place identifier returned by search or autocomplete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
+                    "key": "X-Goog-FieldMask",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfc8092d-69b0-406f-9f54-a24dc93c1135",
+          "name": "Google Places Get Place Photo",
+          "request": {
+            "name": "Google Places Get Place Photo",
+            "description": {
+              "content": "Retrieve a photo for a place. The photo is referenced by the photo resource name returned in a Place Details, Nearby Search, or Text Search response. Returns the photo media or a redirect to the image bytes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "places",
+                ":placeId",
+                "photos",
+                ":photoName",
+                "media"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "maxHeightPx",
+                  "value": "<integer>",
+                  "description": "Maximum desired height of the image in pixels (1-4800)."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxWidthPx",
+                  "value": "<integer>",
+                  "description": "Maximum desired width of the image in pixels (1-4800)."
+                },
+                {
+                  "disabled": false,
+                  "key": "skipHttpRedirect",
+                  "value": "<boolean>",
+                  "description": "If true, returns a JSON response with the photo URI instead of redirecting."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "placeId",
+                  "description": "(Required) The unique place identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "photoName",
+                  "description": "(Required) The photo resource reference returned in a place's photos array (the segment following photos/)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7af388eb-cab1-4d41-ac7b-43992eb75f2a",
+              "name": "The photo media response, or a JSON photo reference when skipHttpRedirect is true.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "places",
+                    ":placeId",
+                    "photos",
+                    ":photoName",
+                    "media"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxHeightPx",
+                      "value": "1080"
+                    },
+                    {
+                      "key": "maxWidthPx",
+                      "value": "1080"
+                    },
+                    {
+                      "key": "skipHttpRedirect",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) The unique place identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "photoName",
+                      "description": "(Required) The photo resource reference returned in a place's photos array (the segment following photos/)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n  \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://places.googleapis.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Goog-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "862b2432-19cf-486b-85dc-1f66fdc04a74",
+    "name": "Google API (New) Places API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Places API (New) is a service that accepts HTTP requests for location data through a variety of methods. It returns formatted location data and imagery about establishments, geographic locations, or prominent points of interest. The API supports Text Search, Nearby Search, Place Details, Place Photos, and Autocomplete. Responses on the New API are shaped by the required X-Goog-FieldMask header, which controls exactly which fields are returned and which billing SKU applies.\n\nContact Support:\n Name: Google Maps Platform",
+      "type": "text/plain"
+    }
+  }
+}

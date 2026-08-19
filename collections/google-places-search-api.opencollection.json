@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google API (New) Places Search API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Goog-Api-Key",
+      "value": "{{X-Goog-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Places Search Nearby",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://places.googleapis.com/v1/places:searchNearby",
+            "headers": [
+              {
+                "name": "X-Goog-FieldMask",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for places within a specified geographic area, optionally filtered by one or more place types. Results can be ranked by popularity or by distance from a center point."
+        },
+        {
+          "info": {
+            "name": "Google Places Search Text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://places.googleapis.com/v1/places:searchText",
+            "headers": [
+              {
+                "name": "X-Goog-FieldMask",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for places using a free-form text query such as \"spicy vegetarian food in Sydney\". Returns a list of matching places ranked by relevance."
+        },
+        {
+          "info": {
+            "name": "Google Places Autocomplete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://places.googleapis.com/v1/places:autocomplete",
+            "headers": [
+              {
+                "name": "X-Goog-FieldMask",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Return place and query predictions in response to partial text input. Supports session tokens so that autocomplete keystrokes plus a subsequent Place Details request are billed as a single session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

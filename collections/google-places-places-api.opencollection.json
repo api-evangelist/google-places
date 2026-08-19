@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google API (New) Places API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Goog-Api-Key",
+      "value": "{{X-Goog-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Places",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Google Places Get Place Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://places.googleapis.com/v1/places/:placeId",
+            "headers": [
+              {
+                "name": "X-Goog-FieldMask",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "placeId",
+                "value": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+                "type": "path",
+                "description": "The unique place identifier returned by search or autocomplete."
+              },
+              {
+                "name": "languageCode",
+                "value": "en",
+                "type": "query",
+                "description": "The language in which to return results (BCP-47 language tag)."
+              },
+              {
+                "name": "regionCode",
+                "value": "US",
+                "type": "query",
+                "description": "The region code, specified as a CLDR two-character region code."
+              }
+            ]
+          },
+          "docs": "Retrieve comprehensive information about a specific place by its place ID, including address, location, opening hours, ratings, reviews, contact details, and photos."
+        },
+        {
+          "info": {
+            "name": "Google Places Get Place Photo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://places.googleapis.com/v1/places/:placeId/photos/:photoName/media",
+            "params": [
+              {
+                "name": "placeId",
+                "value": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+                "type": "path",
+                "description": "The unique place identifier."
+              },
+              {
+                "name": "photoName",
+                "value": "AeJbb3eJ_example_reference",
+                "type": "path",
+                "description": "The photo resource reference returned in a place's photos array (the segment following photos/)."
+              },
+              {
+                "name": "maxHeightPx",
+                "value": "1080",
+                "type": "query",
+                "description": "Maximum desired height of the image in pixels (1-4800)."
+              },
+              {
+                "name": "maxWidthPx",
+                "value": "1080",
+                "type": "query",
+                "description": "Maximum desired width of the image in pixels (1-4800)."
+              },
+              {
+                "name": "skipHttpRedirect",
+                "value": "true",
+                "type": "query",
+                "description": "If true, returns a JSON response with the photo URI instead of redirecting."
+              }
+            ]
+          },
+          "docs": "Retrieve a photo for a place. The photo is referenced by the photo resource name returned in a Place Details, Nearby Search, or Text Search response. Returns the photo media or a redirect to the image bytes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
