@@ -3,6 +3,18 @@ description: >-
   The Google Places API is a service that accepts HTTP requests for location data through a variety of methods. It
   returns formatted location data and imagery about establishments, geographic locations, or prominent points of
   interest. Supports nearby search, text search, place details, place photos, and autocomplete.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
