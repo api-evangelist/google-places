@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Google API (New) Places API
   description: The Places API (New) is a service that accepts HTTP requests for location data through a variety of methods. It returns formatted location data and imagery about establishments, geographic locations, or prominent points of interest. The API supports Text Search, Nearby Search, Place Details, Place Photos, and Autocomplete. Responses on the New API are shaped by the required X-Goog-FieldMask header, which controls exactly which fields are returned and which billing SKU applies.
@@ -207,47 +207,6 @@ components:
       schema:
         type: string
   schemas:
-    AuthorAttribution:
-      type: object
-      description: Attribution for the author of a review or photo.
-      properties:
-        displayName:
-          type: string
-          description: The name of the author.
-          example: Googleplex
-        uri:
-          type: string
-          format: uri
-          description: A link to the author's profile.
-          example: https://maps.google.com/?cid=12345678901234567890
-        photoUri:
-          type: string
-          format: uri
-          description: A link to the author's profile photo.
-          example: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
-    OpeningHours:
-      type: object
-      description: Information about the operating hours of a place.
-      properties:
-        openNow:
-          type: boolean
-          description: Whether the place is currently open.
-          example: true
-        periods:
-          type: array
-          description: The periods that this place is open during the week.
-          items:
-            type: object
-            properties:
-              open:
-                $ref: '#/components/schemas/TimePoint'
-              close:
-                $ref: '#/components/schemas/TimePoint'
-        weekdayDescriptions:
-          type: array
-          description: Localized strings describing the opening hours for each day of the week.
-          items:
-            type: string
     LocalizedText:
       type: object
       description: Localized text in a particular language.
@@ -273,51 +232,50 @@ components:
           format: uri
           description: A short-lived URI to the photo bytes.
           example: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
-    Review:
+    Photo:
       type: object
-      description: A user review of a place.
+      description: A photo associated with a place.
       properties:
         name:
           type: string
-          description: The resource name of the review.
+          description: The resource name of the photo, used to fetch the media.
           example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
-        rating:
-          type: number
-          description: The star rating given in this review, from 1.0 to 5.0.
-          minimum: 1
-          maximum: 5
-          example: 4.5
-        text:
-          $ref: '#/components/schemas/LocalizedText'
-        originalText:
-          $ref: '#/components/schemas/LocalizedText'
-        relativePublishTimeDescription:
-          type: string
-          description: A human-readable, relative description of when the review was published.
-          example: 'Monday: 9:00 AM - 5:00 PM'
-        publishTime:
-          type: string
-          format: date-time
-          description: The timestamp at which the review was published.
-          example: '2026-03-15T14:30:00Z'
-        authorAttribution:
-          $ref: '#/components/schemas/AuthorAttribution'
-    LatLng:
+        widthPx:
+          type: integer
+          description: The maximum available width of the photo in pixels.
+          example: 1080
+        heightPx:
+          type: integer
+          description: The maximum available height of the photo in pixels.
+          example: 1080
+        authorAttributions:
+          type: array
+          description: Attribution information for the authors of this photo.
+          items:
+            $ref: '#/components/schemas/AuthorAttribution'
+    OpeningHours:
       type: object
-      description: A latitude/longitude pair expressed in degrees.
+      description: Information about the operating hours of a place.
       properties:
-        latitude:
-          type: number
-          description: Latitude in degrees, in the range -90.0 to 90.0.
-          minimum: -90
-          maximum: 90
-          example: 37.422
-        longitude:
-          type: number
-          description: Longitude in degrees, in the range -180.0 to 180.0.
-          minimum: -180
-          maximum: 180
-          example: -122.0841
+        openNow:
+          type: boolean
+          description: Whether the place is currently open.
+          example: true
+        periods:
+          type: array
+          description: The periods that this place is open during the week.
+          items:
+            type: object
+            properties:
+              open:
+                $ref: '#/components/schemas/TimePoint'
+              close:
+                $ref: '#/components/schemas/TimePoint'
+        weekdayDescriptions:
+          type: array
+          description: Localized strings describing the opening hours for each day of the week.
+          items:
+            type: string
     Place:
       type: object
       description: A place returned by the Google Places API, such as an establishment or point of interest.
@@ -411,27 +369,51 @@ components:
           description: Reviews about this place.
           items:
             $ref: '#/components/schemas/Review'
-    Photo:
+    LatLng:
       type: object
-      description: A photo associated with a place.
+      description: A latitude/longitude pair expressed in degrees.
+      properties:
+        latitude:
+          type: number
+          description: Latitude in degrees, in the range -90.0 to 90.0.
+          minimum: -90
+          maximum: 90
+          example: 37.422
+        longitude:
+          type: number
+          description: Longitude in degrees, in the range -180.0 to 180.0.
+          minimum: -180
+          maximum: 180
+          example: -122.0841
+    Review:
+      type: object
+      description: A user review of a place.
       properties:
         name:
           type: string
-          description: The resource name of the photo, used to fetch the media.
+          description: The resource name of the review.
           example: places/ChIJN1t_tDeuEmsRUsoyG83frY4
-        widthPx:
-          type: integer
-          description: The maximum available width of the photo in pixels.
-          example: 1080
-        heightPx:
-          type: integer
-          description: The maximum available height of the photo in pixels.
-          example: 1080
-        authorAttributions:
-          type: array
-          description: Attribution information for the authors of this photo.
-          items:
-            $ref: '#/components/schemas/AuthorAttribution'
+        rating:
+          type: number
+          description: The star rating given in this review, from 1.0 to 5.0.
+          minimum: 1
+          maximum: 5
+          example: 4.5
+        text:
+          $ref: '#/components/schemas/LocalizedText'
+        originalText:
+          $ref: '#/components/schemas/LocalizedText'
+        relativePublishTimeDescription:
+          type: string
+          description: A human-readable, relative description of when the review was published.
+          example: 'Monday: 9:00 AM - 5:00 PM'
+        publishTime:
+          type: string
+          format: date-time
+          description: The timestamp at which the review was published.
+          example: '2026-03-15T14:30:00Z'
+        authorAttribution:
+          $ref: '#/components/schemas/AuthorAttribution'
     TimePoint:
       type: object
       description: A point in time when a place opens or closes.
@@ -454,6 +436,24 @@ components:
           minimum: 0
           maximum: 59
           example: 0
+    AuthorAttribution:
+      type: object
+      description: Attribution for the author of a review or photo.
+      properties:
+        displayName:
+          type: string
+          description: The name of the author.
+          example: Googleplex
+        uri:
+          type: string
+          format: uri
+          description: A link to the author's profile.
+          example: https://maps.google.com/?cid=12345678901234567890
+        photoUri:
+          type: string
+          format: uri
+          description: A link to the author's profile photo.
+          example: https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media
     Error:
       type: object
       description: A standard Google API error response.
