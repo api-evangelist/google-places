@@ -1,8 +1,8 @@
 name: Google Places
-description: >-
-  The Google Places API is a service that accepts HTTP requests for location data through a variety of methods. It
-  returns formatted location data and imagery about establishments, geographic locations, or prominent points of
-  interest. Supports nearby search, text search, place details, place photos, and autocomplete.
+description: The Google Places API is a service that accepts HTTP requests for location data through a
+  variety of methods. It returns formatted location data and imagery about establishments, geographic
+  locations, or prominent points of interest. Supports nearby search, text search, place details, place
+  photos, and autocomplete.
 deliveryModel:
   model: saas
   open_source: false
@@ -31,19 +31,19 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/google-places.png
 url: https://raw.githubusercontent.com/api-evangelist/google-places/refs/heads/main/apis.yml
 created: '2026-03-13'
-modified: '2026-06-02'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 tags:
-  - Restaurant
-  - Geolocation
-  - Google
-  - Locations
-  - Maps
-  - Places
-  - Points of Interest
+- Restaurant
+- Geolocation
+- Google
+- Locations
+- Maps
+- Places
+- Points of Interest
 apis:
 - aid: google-places:google-places-places-api
-  name: Google Places Places API
+  name: Google Places API
   description: Operations for retrieving place details and media.
   humanURL: https://developers.google.com/maps/documentation/places/web-service
   baseURL: https://places.googleapis.com/v1
@@ -99,74 +99,75 @@ apis:
   - type: Documentation
     url: https://developers.google.com/maps/documentation/places/web-service
 common:
-  - type: Website
-    url: https://www.google.com/
-  - type: AgenticAccess
-    url: agentic-access/google-places-agentic-access.yml
-  - type: VulnerabilityDisclosure
-    url: security/google-places-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/google-places-domain-security.yml
-  - type: Authentication
-    url: authentication/google-places-authentication.yml
-  - type: OAuthScopes
-    url: scopes/google-places-scopes.yml
-  - type: GitHubOrganization
-    url: https://github.com/googlemaps
-  - type: Tools
-    title: MCP Server
-    url: https://github.com/googlemaps/platform-ai
-  - type: Tools
-    title: MCP Server (Grounding)
-    url: https://developers.google.com/maps/ai/grounding-lite/reference/mcp
-  - type: GettingStarted
-    url: https://developers.google.com/maps/documentation/places/web-service/overview
-  - type: Authentication
-    url: https://developers.google.com/maps/documentation/places/web-service/get-api-key
-  - type: Pricing
-    url: https://developers.google.com/maps/billing-and-pricing/pricing
-  - type: RateLimits
-    url: rate-limits/google-places-rate-limits.yml
-  - type: Plans
-    url: plans/google-places-plans-pricing.yml
-  - type: FinOps
-    url: finops/google-places-finops.yml
-  - type: JSONLD
-    url: json-ld/context.jsonld
-  - type: Spectral
-    url: rules/google-places-spectral-rules.yml
-  - type: Vocabulary
-    url: vocabulary/google-places-vocabulary.yml
-  - type: SupportTermsOfService
-    url: https://cloud.google.com/maps-platform/terms
+- type: Website
+  url: https://www.google.com/
+- type: AgenticAccess
+  url: agentic-access/google-places-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/google-places-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/google-places-domain-security.yml
+- type: Authentication
+  url: authentication/google-places-authentication.yml
+- type: OAuthScopes
+  url: scopes/google-places-scopes.yml
+- type: GitHubOrganization
+  url: https://github.com/googlemaps
+- type: Tools
+  title: MCP Server
+  url: https://github.com/googlemaps/platform-ai
+- type: Tools
+  title: MCP Server (Grounding)
+  url: https://developers.google.com/maps/ai/grounding-lite/reference/mcp
+- type: GettingStarted
+  url: https://developers.google.com/maps/documentation/places/web-service/overview
+- type: Authentication
+  url: https://developers.google.com/maps/documentation/places/web-service/get-api-key
+- type: Pricing
+  url: https://developers.google.com/maps/billing-and-pricing/pricing
+- type: RateLimits
+  url: rate-limits/google-places-rate-limits.yml
+- type: Plans
+  url: plans/google-places-plans-pricing.yml
+- type: FinOps
+  url: finops/google-places-finops.yml
+- type: JSONLD
+  url: json-ld/context.jsonld
+- type: Spectral
+  url: rules/google-places-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/google-places-vocabulary.yml
+- type: SupportTermsOfService
+  url: https://cloud.google.com/maps-platform/terms
 features:
-  - name: Text Search
-    description: >-
-      Search for places using free-form text queries such as "pizza near Boston" and return matching establishments and
-      points of interest.
-  - name: Nearby Search
-    description: >-
-      Find places within a specified geographic radius, optionally filtered by place type, ranked by distance or
-      prominence.
-  - name: Place Details
-    description: >-
-      Retrieve comprehensive information about a place including address, opening hours, ratings, reviews, contact
-      details, and photos.
-  - name: Place Photos
-    description: Access high-quality photographic content associated with a place from Google's database.
-  - name: Autocomplete
-    description: Return place and query predictions in response to partial text input, with optional session-based billing.
+- name: Text Search
+  description: Search for places using free-form text queries such as "pizza near Boston" and return matching
+    establishments and points of interest.
+- name: Nearby Search
+  description: Find places within a specified geographic radius, optionally filtered by place type, ranked
+    by distance or prominence.
+- name: Place Details
+  description: Retrieve comprehensive information about a place including address, opening hours, ratings,
+    reviews, contact details, and photos.
+- name: Place Photos
+  description: Access high-quality photographic content associated with a place from Google's database.
+- name: Autocomplete
+  description: Return place and query predictions in response to partial text input, with optional session-based
+    billing.
 useCases:
-  - name: Location Discovery
-    description: Help users discover restaurants, hotels, and points of interest near their current location.
-  - name: Address Autocomplete
-    description: Provide type-ahead address and place suggestions in forms to reduce input errors and speed up checkout flows.
-  - name: Delivery Enrichment
-    description: Enrich delivery and logistics status updates with verified place details and geolocation data.
-  - name: Travel and Tourism
-    description: Show travelers establishment contact information, pricing signals, reviews, ratings, and photos.
+- name: Location Discovery
+  description: Help users discover restaurants, hotels, and points of interest near their current location.
+- name: Address Autocomplete
+  description: Provide type-ahead address and place suggestions in forms to reduce input errors and speed
+    up checkout flows.
+- name: Delivery Enrichment
+  description: Enrich delivery and logistics status updates with verified place details and geolocation
+    data.
+- name: Travel and Tourism
+  description: Show travelers establishment contact information, pricing signals, reviews, ratings, and
+    photos.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 x-parent: google
 x-relationship: product
