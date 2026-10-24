@@ -1,260 +1,270 @@
 {
+  "info": {
+    "_postman_id": "efad830c-e222-4f81-a78b-14d65d611f9a",
+    "name": "Google Places API (New) Search API",
+    "description": "The Places API (New) is a service that accepts HTTP requests for location data through a variety of methods. It returns formatted location data and imagery about establishments, geographic locations, or prominent points of interest. The API supports Text Search, Nearby Search, Place Details, Place Photos, and Autocomplete. Responses on the New API are shaped by the required X-Goog-FieldMask header, which controls exactly which fields are returned and which billing SKU applies.\n\nContact Support:\n Name: Google Maps Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:54:12.000Z",
+    "updatedAt": "2026-10-22T02:54:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-efad830c-e222-4f81-a78b-14d65d611f9a"
+  },
   "item": [
     {
-      "id": "53b35464-ca24-44b9-b425-39c77cfa6ab6",
-      "name": "Search",
-      "description": {
-        "content": "Operations for searching and autocompleting places.",
-        "type": "text/plain"
-      },
+      "name": "places:searchNearby",
       "item": [
         {
-          "id": "bf8b3d5f-2eff-4679-b8df-c8112f7e6174",
           "name": "Google Places Search Nearby",
+          "id": "894039a6-60ca-4e43-8911-80b03e8e78d8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Google Places Search Nearby",
-            "description": {
-              "content": "Search for places within a specified geographic area, optionally filtered by one or more place types. Results can be ranked by popularity or by distance from a center point.",
-              "type": "text/plain"
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
+                "key": "X-Goog-FieldMask",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"locationRestriction\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  },\n  \"includedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"POPULARITY\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
             },
             "url": {
+              "raw": "{{baseUrl}}/places:searchNearby",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "places:searchNearby"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
+              ]
             },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
-                "key": "X-Goog-FieldMask",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"locationRestriction\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  },\n  \"includedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"<string>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "description": "Search for places within a specified geographic area, optionally filtered by one or more place types. Results can be ranked by popularity or by distance from a center point."
           },
           "response": [
             {
-              "id": "27eb77f8-4d21-42fa-95ce-5228acf3c8a2",
+              "id": "30d8415d-4be8-467b-a1d7-d71b409c0829",
               "name": "A list of places matching the nearby search criteria.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "places:searchNearby"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"includedTypes\": [\n    \"restaurant\"\n  ],\n  \"excludedTypes\": [\n    \"restaurant\"\n  ],\n  \"maxResultCount\": 128,\n  \"rankPreference\": \"POPULARITY\",\n  \"languageCode\": \"en\",\n  \"regionCode\": \"US\",\n  \"locationRestriction\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"radius\": 500\n    }\n  }\n}",
+                  "raw": "{\n  \"locationRestriction\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  },\n  \"includedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"POPULARITY\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/places:searchNearby",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "places:searchNearby"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"places\": [\n    {\n      \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n      \"id\": \"ChIJN1t_tDeuEmsRUsoyG83frY4\",\n      \"displayName\": {\n        \"text\": \"Google Building 40\",\n        \"languageCode\": \"en\"\n      },\n      \"types\": [\n        \"restaurant\"\n      ],\n      \"primaryType\": \"restaurant\",\n      \"formattedAddress\": \"1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\",\n      \"shortFormattedAddress\": \"1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\",\n      \"location\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"rating\": 4.5,\n      \"userRatingCount\": 128,\n      \"priceLevel\": \"PRICE_LEVEL_FREE\",\n      \"businessStatus\": \"OPERATIONAL\",\n      \"nationalPhoneNumber\": \"+1 650-253-0000\",\n      \"internationalPhoneNumber\": \"+1 650-253-0000\",\n      \"websiteUri\": \"https://maps.google.com/?cid=12345678901234567890\",\n      \"googleMapsUri\": \"https://maps.google.com/?cid=12345678901234567890\",\n      \"regularOpeningHours\": {\n        \"openNow\": true,\n        \"periods\": [\n          {\n            \"open\": {\n              \"day\": 1,\n              \"hour\": 9,\n              \"minute\": 0\n            },\n            \"close\": {\n              \"day\": 1,\n              \"hour\": 9,\n              \"minute\": 0\n            }\n          }\n        ],\n        \"weekdayDescriptions\": [\n          \"Monday: 9:00 AM - 5:00 PM\"\n        ]\n      },\n      \"photos\": [\n        {\n          \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n          \"widthPx\": 1080,\n          \"heightPx\": 1080,\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"Googleplex\",\n              \"uri\": \"https://maps.google.com/?cid=12345678901234567890\",\n              \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n            }\n          ]\n        }\n      ],\n      \"reviews\": [\n        {\n          \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n          \"rating\": 4.5,\n          \"text\": {\n            \"text\": \"Google Building 40\",\n            \"languageCode\": \"en\"\n          },\n          \"originalText\": {\n            \"text\": \"Google Building 40\",\n            \"languageCode\": \"en\"\n          },\n          \"relativePublishTimeDescription\": \"Monday: 9:00 AM - 5:00 PM\",\n          \"publishTime\": \"2026-03-15T14:30:00Z\",\n          \"authorAttribution\": {\n            \"displayName\": \"Googleplex\",\n            \"uri\": \"https://maps.google.com/?cid=12345678901234567890\",\n            \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n          }\n        }\n      ]\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"places\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"displayName\": {\n        \"text\": \"<string>\",\n        \"languageCode\": \"<string>\"\n      },\n      \"types\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"primaryType\": \"<string>\",\n      \"formattedAddress\": \"<string>\",\n      \"shortFormattedAddress\": \"<string>\",\n      \"location\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"rating\": \"<number>\",\n      \"userRatingCount\": \"<integer>\",\n      \"priceLevel\": \"PRICE_LEVEL_UNSPECIFIED\",\n      \"businessStatus\": \"CLOSED_PERMANENTLY\",\n      \"nationalPhoneNumber\": \"<string>\",\n      \"internationalPhoneNumber\": \"<string>\",\n      \"websiteUri\": \"<uri>\",\n      \"googleMapsUri\": \"<uri>\",\n      \"regularOpeningHours\": {\n        \"openNow\": \"<boolean>\",\n        \"periods\": [\n          {\n            \"open\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            },\n            \"close\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            }\n          },\n          {\n            \"open\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            },\n            \"close\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            }\n          }\n        ],\n        \"weekdayDescriptions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"photos\": [\n        {\n          \"name\": \"<string>\",\n          \"widthPx\": \"<integer>\",\n          \"heightPx\": \"<integer>\",\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            },\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            }\n          ]\n        },\n        {\n          \"name\": \"<string>\",\n          \"widthPx\": \"<integer>\",\n          \"heightPx\": \"<integer>\",\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            },\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            }\n          ]\n        }\n      ],\n      \"reviews\": [\n        {\n          \"name\": \"<string>\",\n          \"rating\": \"<number>\",\n          \"text\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"originalText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"relativePublishTimeDescription\": \"<string>\",\n          \"publishTime\": \"<dateTime>\",\n          \"authorAttribution\": {\n            \"displayName\": \"<string>\",\n            \"uri\": \"<uri>\",\n            \"photoUri\": \"<uri>\"\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"rating\": \"<number>\",\n          \"text\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"originalText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"relativePublishTimeDescription\": \"<string>\",\n          \"publishTime\": \"<dateTime>\",\n          \"authorAttribution\": {\n            \"displayName\": \"<string>\",\n            \"uri\": \"<uri>\",\n            \"photoUri\": \"<uri>\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"displayName\": {\n        \"text\": \"<string>\",\n        \"languageCode\": \"<string>\"\n      },\n      \"types\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"primaryType\": \"<string>\",\n      \"formattedAddress\": \"<string>\",\n      \"shortFormattedAddress\": \"<string>\",\n      \"location\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"rating\": \"<number>\",\n      \"userRatingCount\": \"<integer>\",\n      \"priceLevel\": \"PRICE_LEVEL_EXPENSIVE\",\n      \"businessStatus\": \"BUSINESS_STATUS_UNSPECIFIED\",\n      \"nationalPhoneNumber\": \"<string>\",\n      \"internationalPhoneNumber\": \"<string>\",\n      \"websiteUri\": \"<uri>\",\n      \"googleMapsUri\": \"<uri>\",\n      \"regularOpeningHours\": {\n        \"openNow\": \"<boolean>\",\n        \"periods\": [\n          {\n            \"open\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            },\n            \"close\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            }\n          },\n          {\n            \"open\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            },\n            \"close\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            }\n          }\n        ],\n        \"weekdayDescriptions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"photos\": [\n        {\n          \"name\": \"<string>\",\n          \"widthPx\": \"<integer>\",\n          \"heightPx\": \"<integer>\",\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            },\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            }\n          ]\n        },\n        {\n          \"name\": \"<string>\",\n          \"widthPx\": \"<integer>\",\n          \"heightPx\": \"<integer>\",\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            },\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            }\n          ]\n        }\n      ],\n      \"reviews\": [\n        {\n          \"name\": \"<string>\",\n          \"rating\": \"<number>\",\n          \"text\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"originalText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"relativePublishTimeDescription\": \"<string>\",\n          \"publishTime\": \"<dateTime>\",\n          \"authorAttribution\": {\n            \"displayName\": \"<string>\",\n            \"uri\": \"<uri>\",\n            \"photoUri\": \"<uri>\"\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"rating\": \"<number>\",\n          \"text\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"originalText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"relativePublishTimeDescription\": \"<string>\",\n          \"publishTime\": \"<dateTime>\",\n          \"authorAttribution\": {\n            \"displayName\": \"<string>\",\n            \"uri\": \"<uri>\",\n            \"photoUri\": \"<uri>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T02:54:13.000Z",
+              "updatedAt": "2026-10-22T02:54:13.000Z",
+              "uid": "35240-30d8415d-4be8-467b-a1d7-d71b409c0829"
             },
             {
-              "id": "66d9f4fa-87c0-4987-8313-f40c081b442e",
+              "id": "33fa24e0-7659-4c42-883f-ad0c40f83ccd",
               "name": "Invalid request.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "places:searchNearby"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"includedTypes\": [\n    \"restaurant\"\n  ],\n  \"excludedTypes\": [\n    \"restaurant\"\n  ],\n  \"maxResultCount\": 128,\n  \"rankPreference\": \"POPULARITY\",\n  \"languageCode\": \"en\",\n  \"regionCode\": \"US\",\n  \"locationRestriction\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"radius\": 500\n    }\n  }\n}",
+                  "raw": "{\n  \"locationRestriction\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  },\n  \"includedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"POPULARITY\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/places:searchNearby",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "places:searchNearby"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:54:13.000Z",
+              "updatedAt": "2026-10-22T02:54:13.000Z",
+              "uid": "35240-33fa24e0-7659-4c42-883f-ad0c40f83ccd"
             },
             {
-              "id": "5f5a4d32-2df9-4fd2-816f-1129b6ab8838",
+              "id": "4aeb334a-4251-4833-913f-cc14a86ee91e",
               "name": "Permission denied, typically an invalid or unauthorized API key.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "places:searchNearby"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"includedTypes\": [\n    \"restaurant\"\n  ],\n  \"excludedTypes\": [\n    \"restaurant\"\n  ],\n  \"maxResultCount\": 128,\n  \"rankPreference\": \"POPULARITY\",\n  \"languageCode\": \"en\",\n  \"regionCode\": \"US\",\n  \"locationRestriction\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"radius\": 500\n    }\n  }\n}",
+                  "raw": "{\n  \"locationRestriction\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  },\n  \"includedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludedTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"POPULARITY\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/places:searchNearby",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "places:searchNearby"
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:54:13.000Z",
+              "updatedAt": "2026-10-22T02:54:13.000Z",
+              "uid": "35240-4aeb334a-4251-4833-913f-cc14a86ee91e"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T02:54:13.000Z",
+          "updatedAt": "2026-10-22T02:54:13.000Z",
+          "uid": "35240-894039a6-60ca-4e43-8911-80b03e8e78d8"
+        }
+      ],
+      "id": "0b5eee94-894c-4c85-a7a3-c344fb6f9da3",
+      "createdAt": "2026-10-22T02:54:13.000Z",
+      "updatedAt": "2026-10-22T02:54:13.000Z",
+      "uid": "35240-0b5eee94-894c-4c85-a7a3-c344fb6f9da3"
+    },
+    {
+      "name": "places:searchText",
+      "item": [
+        {
+          "name": "Google Places Search Text",
+          "id": "ae065c38-d104-49ce-882c-d57daa3a5381",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "7c2cd59d-e313-40b3-9ca7-f60c369e74dc",
-          "name": "Google Places Search Text",
+          },
           "request": {
-            "name": "Google Places Search Text",
-            "description": {
-              "content": "Search for places using a free-form text query such as \"spicy vegetarian food in Sydney\". Returns a list of matching places ranked by relevance.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "places:searchText"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                 "key": "X-Goog-FieldMask",
                 "value": "<string>"
@@ -268,218 +278,235 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"textQuery\": \"<string>\",\n  \"includedType\": \"<string>\",\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"<string>\",\n  \"openNow\": \"<boolean>\",\n  \"minRating\": \"<number>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  }\n}",
+              "raw": "{\n  \"textQuery\": \"<string>\",\n  \"includedType\": \"<string>\",\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"DISTANCE\",\n  \"openNow\": \"<boolean>\",\n  \"minRating\": \"<number>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  }\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/places:searchText",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "places:searchText"
+              ]
+            },
+            "description": "Search for places using a free-form text query such as \"spicy vegetarian food in Sydney\". Returns a list of matching places ranked by relevance."
           },
           "response": [
             {
-              "id": "cfadd6a4-c1a9-4ce7-b94c-f0fc7cc8e8ce",
+              "id": "887b09e9-2655-4519-8d08-707e5510b784",
               "name": "A list of places matching the text query.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "places:searchText"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"textQuery\": \"Google Building 40\",\n  \"includedType\": \"restaurant\",\n  \"maxResultCount\": 128,\n  \"rankPreference\": \"RELEVANCE\",\n  \"openNow\": true,\n  \"minRating\": 4.5,\n  \"languageCode\": \"en\",\n  \"regionCode\": \"US\",\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"radius\": 500\n    }\n  }\n}",
+                  "raw": "{\n  \"textQuery\": \"<string>\",\n  \"includedType\": \"<string>\",\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"DISTANCE\",\n  \"openNow\": \"<boolean>\",\n  \"minRating\": \"<number>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/places:searchText",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "places:searchText"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"places\": [\n    {\n      \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n      \"id\": \"ChIJN1t_tDeuEmsRUsoyG83frY4\",\n      \"displayName\": {\n        \"text\": \"Google Building 40\",\n        \"languageCode\": \"en\"\n      },\n      \"types\": [\n        \"restaurant\"\n      ],\n      \"primaryType\": \"restaurant\",\n      \"formattedAddress\": \"1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\",\n      \"shortFormattedAddress\": \"1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\",\n      \"location\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"rating\": 4.5,\n      \"userRatingCount\": 128,\n      \"priceLevel\": \"PRICE_LEVEL_FREE\",\n      \"businessStatus\": \"OPERATIONAL\",\n      \"nationalPhoneNumber\": \"+1 650-253-0000\",\n      \"internationalPhoneNumber\": \"+1 650-253-0000\",\n      \"websiteUri\": \"https://maps.google.com/?cid=12345678901234567890\",\n      \"googleMapsUri\": \"https://maps.google.com/?cid=12345678901234567890\",\n      \"regularOpeningHours\": {\n        \"openNow\": true,\n        \"periods\": [\n          {\n            \"open\": {\n              \"day\": 1,\n              \"hour\": 9,\n              \"minute\": 0\n            },\n            \"close\": {\n              \"day\": 1,\n              \"hour\": 9,\n              \"minute\": 0\n            }\n          }\n        ],\n        \"weekdayDescriptions\": [\n          \"Monday: 9:00 AM - 5:00 PM\"\n        ]\n      },\n      \"photos\": [\n        {\n          \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n          \"widthPx\": 1080,\n          \"heightPx\": 1080,\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"Googleplex\",\n              \"uri\": \"https://maps.google.com/?cid=12345678901234567890\",\n              \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n            }\n          ]\n        }\n      ],\n      \"reviews\": [\n        {\n          \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n          \"rating\": 4.5,\n          \"text\": {\n            \"text\": \"Google Building 40\",\n            \"languageCode\": \"en\"\n          },\n          \"originalText\": {\n            \"text\": \"Google Building 40\",\n            \"languageCode\": \"en\"\n          },\n          \"relativePublishTimeDescription\": \"Monday: 9:00 AM - 5:00 PM\",\n          \"publishTime\": \"2026-03-15T14:30:00Z\",\n          \"authorAttribution\": {\n            \"displayName\": \"Googleplex\",\n            \"uri\": \"https://maps.google.com/?cid=12345678901234567890\",\n            \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n          }\n        }\n      ]\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"places\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"displayName\": {\n        \"text\": \"<string>\",\n        \"languageCode\": \"<string>\"\n      },\n      \"types\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"primaryType\": \"<string>\",\n      \"formattedAddress\": \"<string>\",\n      \"shortFormattedAddress\": \"<string>\",\n      \"location\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"rating\": \"<number>\",\n      \"userRatingCount\": \"<integer>\",\n      \"priceLevel\": \"PRICE_LEVEL_UNSPECIFIED\",\n      \"businessStatus\": \"CLOSED_PERMANENTLY\",\n      \"nationalPhoneNumber\": \"<string>\",\n      \"internationalPhoneNumber\": \"<string>\",\n      \"websiteUri\": \"<uri>\",\n      \"googleMapsUri\": \"<uri>\",\n      \"regularOpeningHours\": {\n        \"openNow\": \"<boolean>\",\n        \"periods\": [\n          {\n            \"open\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            },\n            \"close\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            }\n          },\n          {\n            \"open\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            },\n            \"close\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            }\n          }\n        ],\n        \"weekdayDescriptions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"photos\": [\n        {\n          \"name\": \"<string>\",\n          \"widthPx\": \"<integer>\",\n          \"heightPx\": \"<integer>\",\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            },\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            }\n          ]\n        },\n        {\n          \"name\": \"<string>\",\n          \"widthPx\": \"<integer>\",\n          \"heightPx\": \"<integer>\",\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            },\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            }\n          ]\n        }\n      ],\n      \"reviews\": [\n        {\n          \"name\": \"<string>\",\n          \"rating\": \"<number>\",\n          \"text\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"originalText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"relativePublishTimeDescription\": \"<string>\",\n          \"publishTime\": \"<dateTime>\",\n          \"authorAttribution\": {\n            \"displayName\": \"<string>\",\n            \"uri\": \"<uri>\",\n            \"photoUri\": \"<uri>\"\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"rating\": \"<number>\",\n          \"text\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"originalText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"relativePublishTimeDescription\": \"<string>\",\n          \"publishTime\": \"<dateTime>\",\n          \"authorAttribution\": {\n            \"displayName\": \"<string>\",\n            \"uri\": \"<uri>\",\n            \"photoUri\": \"<uri>\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"displayName\": {\n        \"text\": \"<string>\",\n        \"languageCode\": \"<string>\"\n      },\n      \"types\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"primaryType\": \"<string>\",\n      \"formattedAddress\": \"<string>\",\n      \"shortFormattedAddress\": \"<string>\",\n      \"location\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"rating\": \"<number>\",\n      \"userRatingCount\": \"<integer>\",\n      \"priceLevel\": \"PRICE_LEVEL_EXPENSIVE\",\n      \"businessStatus\": \"BUSINESS_STATUS_UNSPECIFIED\",\n      \"nationalPhoneNumber\": \"<string>\",\n      \"internationalPhoneNumber\": \"<string>\",\n      \"websiteUri\": \"<uri>\",\n      \"googleMapsUri\": \"<uri>\",\n      \"regularOpeningHours\": {\n        \"openNow\": \"<boolean>\",\n        \"periods\": [\n          {\n            \"open\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            },\n            \"close\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            }\n          },\n          {\n            \"open\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            },\n            \"close\": {\n              \"day\": \"<integer>\",\n              \"hour\": \"<integer>\",\n              \"minute\": \"<integer>\"\n            }\n          }\n        ],\n        \"weekdayDescriptions\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"photos\": [\n        {\n          \"name\": \"<string>\",\n          \"widthPx\": \"<integer>\",\n          \"heightPx\": \"<integer>\",\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            },\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            }\n          ]\n        },\n        {\n          \"name\": \"<string>\",\n          \"widthPx\": \"<integer>\",\n          \"heightPx\": \"<integer>\",\n          \"authorAttributions\": [\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            },\n            {\n              \"displayName\": \"<string>\",\n              \"uri\": \"<uri>\",\n              \"photoUri\": \"<uri>\"\n            }\n          ]\n        }\n      ],\n      \"reviews\": [\n        {\n          \"name\": \"<string>\",\n          \"rating\": \"<number>\",\n          \"text\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"originalText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"relativePublishTimeDescription\": \"<string>\",\n          \"publishTime\": \"<dateTime>\",\n          \"authorAttribution\": {\n            \"displayName\": \"<string>\",\n            \"uri\": \"<uri>\",\n            \"photoUri\": \"<uri>\"\n          }\n        },\n        {\n          \"name\": \"<string>\",\n          \"rating\": \"<number>\",\n          \"text\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"originalText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"relativePublishTimeDescription\": \"<string>\",\n          \"publishTime\": \"<dateTime>\",\n          \"authorAttribution\": {\n            \"displayName\": \"<string>\",\n            \"uri\": \"<uri>\",\n            \"photoUri\": \"<uri>\"\n          }\n        }\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T02:54:13.000Z",
+              "updatedAt": "2026-10-22T02:54:13.000Z",
+              "uid": "35240-887b09e9-2655-4519-8d08-707e5510b784"
             },
             {
-              "id": "2cf818d8-ce0e-499b-ba62-bf0e1d711199",
+              "id": "525ff5d3-990b-4499-b414-465023b2dc40",
               "name": "Invalid request.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "places:searchText"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"textQuery\": \"Google Building 40\",\n  \"includedType\": \"restaurant\",\n  \"maxResultCount\": 128,\n  \"rankPreference\": \"RELEVANCE\",\n  \"openNow\": true,\n  \"minRating\": 4.5,\n  \"languageCode\": \"en\",\n  \"regionCode\": \"US\",\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"radius\": 500\n    }\n  }\n}",
+                  "raw": "{\n  \"textQuery\": \"<string>\",\n  \"includedType\": \"<string>\",\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"DISTANCE\",\n  \"openNow\": \"<boolean>\",\n  \"minRating\": \"<number>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/places:searchText",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "places:searchText"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:54:13.000Z",
+              "updatedAt": "2026-10-22T02:54:13.000Z",
+              "uid": "35240-525ff5d3-990b-4499-b414-465023b2dc40"
             },
             {
-              "id": "0096fbc2-e7bc-4787-a43c-032d3d61c239",
+              "id": "6c07e227-e1c4-4035-86d8-132ac34ada4a",
               "name": "Permission denied, typically an invalid or unauthorized API key.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "places:searchText"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"textQuery\": \"Google Building 40\",\n  \"includedType\": \"restaurant\",\n  \"maxResultCount\": 128,\n  \"rankPreference\": \"RELEVANCE\",\n  \"openNow\": true,\n  \"minRating\": 4.5,\n  \"languageCode\": \"en\",\n  \"regionCode\": \"US\",\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"radius\": 500\n    }\n  }\n}",
+                  "raw": "{\n  \"textQuery\": \"<string>\",\n  \"includedType\": \"<string>\",\n  \"maxResultCount\": \"<integer>\",\n  \"rankPreference\": \"DISTANCE\",\n  \"openNow\": \"<boolean>\",\n  \"minRating\": \"<number>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/places:searchText",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "places:searchText"
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:54:13.000Z",
+              "updatedAt": "2026-10-22T02:54:13.000Z",
+              "uid": "35240-6c07e227-e1c4-4035-86d8-132ac34ada4a"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-22T02:54:13.000Z",
+          "updatedAt": "2026-10-22T02:54:13.000Z",
+          "uid": "35240-ae065c38-d104-49ce-882c-d57daa3a5381"
+        }
+      ],
+      "id": "425ddb65-4f64-4f3b-807b-c959c2b51d7e",
+      "createdAt": "2026-10-22T02:54:13.000Z",
+      "updatedAt": "2026-10-22T02:54:13.000Z",
+      "uid": "35240-425ddb65-4f64-4f3b-807b-c959c2b51d7e"
+    },
+    {
+      "name": "places:autocomplete",
+      "item": [
+        {
+          "name": "Google Places Autocomplete",
+          "id": "081b5298-4035-49d4-b7e0-885a797fa2ab",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "09775913-0fe9-4550-85ec-69786f577390",
-          "name": "Google Places Autocomplete",
+          },
           "request": {
-            "name": "Google Places Autocomplete",
-            "description": {
-              "content": "Return place and query predictions in response to partial text input. Supports session tokens so that autocomplete keystrokes plus a subsequent Place Details request are billed as a single session.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "places:autocomplete"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
-                "disabled": false,
                 "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                 "key": "X-Goog-FieldMask",
                 "value": "<string>"
@@ -493,149 +520,160 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"input\": \"<string>\",\n  \"sessionToken\": \"<string>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"includedPrimaryTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  }\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/places:autocomplete",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "places:autocomplete"
+              ]
+            },
+            "description": "Return place and query predictions in response to partial text input. Supports session tokens so that autocomplete keystrokes plus a subsequent Place Details request are billed as a single session."
           },
           "response": [
             {
-              "id": "db223273-e63a-4bf4-b1aa-58108e008cdf",
+              "id": "e87945f7-c7f8-40b3-ace2-e23781c2a967",
               "name": "A list of place and query predictions.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "places:autocomplete"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"input\": \"Googlep\",\n  \"sessionToken\": \"0a1b2c3d-4e5f-6789-abcd-ef0123456789\",\n  \"languageCode\": \"en\",\n  \"regionCode\": \"US\",\n  \"includedPrimaryTypes\": [\n    \"restaurant\"\n  ],\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"radius\": 500\n    }\n  }\n}",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"sessionToken\": \"<string>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"includedPrimaryTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/places:autocomplete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "places:autocomplete"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"suggestions\": [\n    {\n      \"placePrediction\": {\n        \"place\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n        \"placeId\": \"ChIJN1t_tDeuEmsRUsoyG83frY4\",\n        \"text\": {\n          \"text\": \"Google Building 40\",\n          \"languageCode\": \"en\"\n        },\n        \"structuredFormat\": {\n          \"mainText\": {\n            \"text\": \"Google Building 40\",\n            \"languageCode\": \"en\"\n          },\n          \"secondaryText\": {\n            \"text\": \"Google Building 40\",\n            \"languageCode\": \"en\"\n          }\n        }\n      },\n      \"queryPrediction\": {\n        \"text\": {\n          \"text\": \"Google Building 40\",\n          \"languageCode\": \"en\"\n        }\n      }\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"suggestions\": [\n    {\n      \"placePrediction\": {\n        \"place\": \"<string>\",\n        \"placeId\": \"<string>\",\n        \"text\": {\n          \"text\": \"<string>\",\n          \"languageCode\": \"<string>\"\n        },\n        \"structuredFormat\": {\n          \"mainText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"secondaryText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          }\n        }\n      },\n      \"queryPrediction\": {\n        \"text\": {\n          \"text\": \"<string>\",\n          \"languageCode\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"placePrediction\": {\n        \"place\": \"<string>\",\n        \"placeId\": \"<string>\",\n        \"text\": {\n          \"text\": \"<string>\",\n          \"languageCode\": \"<string>\"\n        },\n        \"structuredFormat\": {\n          \"mainText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          },\n          \"secondaryText\": {\n            \"text\": \"<string>\",\n            \"languageCode\": \"<string>\"\n          }\n        }\n      },\n      \"queryPrediction\": {\n        \"text\": {\n          \"text\": \"<string>\",\n          \"languageCode\": \"<string>\"\n        }\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T02:54:13.000Z",
+              "updatedAt": "2026-10-22T02:54:13.000Z",
+              "uid": "35240-e87945f7-c7f8-40b3-ace2-e23781c2a967"
             },
             {
-              "id": "1027cd3a-2e3f-4169-afd5-5f71bcb22914",
+              "id": "2836553f-f7a5-436c-b561-0ccb6e6fd5eb",
               "name": "Invalid request.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "places:autocomplete"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
                   },
                   {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Goog-Api-Key",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"input\": \"Googlep\",\n  \"sessionToken\": \"0a1b2c3d-4e5f-6789-abcd-ef0123456789\",\n  \"languageCode\": \"en\",\n  \"regionCode\": \"US\",\n  \"includedPrimaryTypes\": [\n    \"restaurant\"\n  ],\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": 37.422,\n        \"longitude\": -122.0841\n      },\n      \"radius\": 500\n    }\n  }\n}",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"sessionToken\": \"<string>\",\n  \"languageCode\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"includedPrimaryTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locationBias\": {\n    \"circle\": {\n      \"center\": {\n        \"latitude\": \"<number>\",\n        \"longitude\": \"<number>\"\n      },\n      \"radius\": \"<number>\"\n    }\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/places:autocomplete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "places:autocomplete"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:54:13.000Z",
+              "updatedAt": "2026-10-22T02:54:13.000Z",
+              "uid": "35240-2836553f-f7a5-436c-b561-0ccb6e6fd5eb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:54:13.000Z",
+          "updatedAt": "2026-10-22T02:54:13.000Z",
+          "uid": "35240-081b5298-4035-49d4-b7e0-885a797fa2ab"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://places.googleapis.com/v1",
-      "key": "baseUrl"
+      "id": "95ccff94-baa7-457f-8ec3-be0b2fd04dd4",
+      "createdAt": "2026-10-22T02:54:13.000Z",
+      "updatedAt": "2026-10-22T02:54:13.000Z",
+      "uid": "35240-95ccff94-baa7-457f-8ec3-be0b2fd04dd4"
     }
   ],
   "auth": {
@@ -643,25 +681,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Goog-Api-Key"
+        "value": "X-Goog-Api-Key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "a7aec4a6-ced8-4e9c-91aa-bd42f44792f3",
-    "name": "Google API (New) Places Search API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Places API (New) is a service that accepts HTTP requests for location data through a variety of methods. It returns formatted location data and imagery about establishments, geographic locations, or prominent points of interest. The API supports Text Search, Nearby Search, Place Details, Place Photos, and Autocomplete. Responses on the New API are shaped by the required X-Goog-FieldMask header, which controls exactly which fields are returned and which billing SKU applies.\n\nContact Support:\n Name: Google Maps Platform",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://places.googleapis.com/v1"
     }
-  }
+  ]
 }

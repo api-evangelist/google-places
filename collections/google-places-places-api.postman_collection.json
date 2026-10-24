@@ -1,113 +1,195 @@
 {
+  "info": {
+    "_postman_id": "80ed4be8-170f-4ba3-a279-2c3451322fa8",
+    "name": "Google API (New) Places API",
+    "description": "The Places API (New) is a service that accepts HTTP requests for location data through a variety of methods. It returns formatted location data and imagery about establishments, geographic locations, or prominent points of interest. The API supports Text Search, Nearby Search, Place Details, Place Photos, and Autocomplete. Responses on the New API are shaped by the required X-Goog-FieldMask header, which controls exactly which fields are returned and which billing SKU applies.\n\nContact Support:\n Name: Google Maps Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:54:07.000Z",
+    "updatedAt": "2026-10-22T02:54:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-80ed4be8-170f-4ba3-a279-2c3451322fa8"
+  },
   "item": [
     {
-      "id": "2a08d073-cc3c-4621-8d78-f7499635eb61",
-      "name": "Places",
-      "description": {
-        "content": "Operations for retrieving place details and media.",
-        "type": "text/plain"
-      },
+      "name": "places",
       "item": [
         {
-          "id": "e6c63560-953f-4b04-bb78-1a96df314977",
-          "name": "Google Places Get Place Details",
-          "request": {
-            "name": "Google Places Get Place Details",
-            "description": {
-              "content": "Retrieve comprehensive information about a specific place by its place ID, including address, location, opening hours, ratings, reviews, contact details, and photos.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "places",
-                ":placeId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "languageCode",
-                  "value": "<string>",
-                  "description": "The language in which to return results (BCP-47 language tag)."
-                },
-                {
-                  "disabled": false,
-                  "key": "regionCode",
-                  "value": "<string>",
-                  "description": "The region code, specified as a CLDR two-character region code."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "placeId",
-                  "description": "(Required) The unique place identifier returned by search or autocomplete."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
-                "key": "X-Goog-FieldMask",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{placeId}",
+          "item": [
             {
-              "id": "fd97dbc7-34b7-49a4-9406-b65945f49d94",
-              "name": "Detailed information about the requested place.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "places",
-                    ":placeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "photos",
+              "item": [
+                {
+                  "name": "{photoName}",
+                  "item": [
                     {
-                      "key": "languageCode",
-                      "value": "en"
-                    },
-                    {
-                      "key": "regionCode",
-                      "value": "US"
+                      "name": "media",
+                      "item": [
+                        {
+                          "name": "Google Places Get Place Photo",
+                          "id": "807c3133-6204-4852-93f9-ca609a6862e0",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/places/:placeId/photos/:photoName/media?maxHeightPx=<integer>&maxWidthPx=<integer>&skipHttpRedirect=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "places",
+                                ":placeId",
+                                "photos",
+                                ":photoName",
+                                "media"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Maximum desired height of the image in pixels (1-4800).",
+                                  "key": "maxHeightPx",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Maximum desired width of the image in pixels (1-4800).",
+                                  "key": "maxWidthPx",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "If true, returns a JSON response with the photo URI instead of redirecting.",
+                                  "key": "skipHttpRedirect",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "52f99dfd-6db6-4f8e-9d96-ddac3c5474e1",
+                                  "key": "placeId",
+                                  "value": "<string>",
+                                  "description": "(Required) The unique place identifier."
+                                },
+                                {
+                                  "id": "6d9add08-4f71-48f7-84d1-82bca4504fc1",
+                                  "key": "photoName",
+                                  "value": "<string>",
+                                  "description": "(Required) The photo resource reference returned in a place's photos array (the segment following photos/)."
+                                }
+                              ]
+                            },
+                            "description": "Retrieve a photo for a place. The photo is referenced by the photo resource name returned in a Place Details, Nearby Search, or Text Search response. Returns the photo media or a redirect to the image bytes."
+                          },
+                          "response": [
+                            {
+                              "id": "3a9d5188-d4ab-4fa6-b9f1-c4dc5b7ae506",
+                              "name": "The photo media response, or a JSON photo reference when skipHttpRedirect is true.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "X-Goog-Api-Key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/places/:placeId/photos/:photoName/media?maxHeightPx=<integer>&maxWidthPx=<integer>&skipHttpRedirect=<boolean>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "places",
+                                    ":placeId",
+                                    "photos",
+                                    ":photoName",
+                                    "media"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Maximum desired height of the image in pixels (1-4800).",
+                                      "key": "maxHeightPx",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Maximum desired width of the image in pixels (1-4800).",
+                                      "key": "maxWidthPx",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "If true, returns a JSON response with the photo URI instead of redirecting.",
+                                      "key": "skipHttpRedirect",
+                                      "value": "<boolean>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "placeId"
+                                    },
+                                    {
+                                      "key": "photoName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"name\": \"<string>\",\n  \"photoUri\": \"<uri>\"\n}",
+                              "createdAt": "2026-10-22T02:54:07.000Z",
+                              "updatedAt": "2026-10-22T02:54:07.000Z",
+                              "uid": "35240-3a9d5188-d4ab-4fa6-b9f1-c4dc5b7ae506"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:54:07.000Z",
+                          "updatedAt": "2026-10-22T02:54:07.000Z",
+                          "uid": "35240-807c3133-6204-4852-93f9-ca609a6862e0"
+                        }
+                      ],
+                      "id": "c781f7bc-af1f-48ee-bf2e-0a06fe04f602",
+                      "createdAt": "2026-10-22T02:54:07.000Z",
+                      "updatedAt": "2026-10-22T02:54:07.000Z",
+                      "uid": "35240-c781f7bc-af1f-48ee-bf2e-0a06fe04f602"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "placeId",
-                      "description": "(Required) The unique place identifier returned by search or autocomplete."
-                    }
-                  ]
-                },
+                  "id": "76e717a3-677e-4dbd-b9df-7e46f286a6d2",
+                  "createdAt": "2026-10-22T02:54:07.000Z",
+                  "updatedAt": "2026-10-22T02:54:07.000Z",
+                  "uid": "35240-76e717a3-677e-4dbd-b9df-7e46f286a6d2"
+                }
+              ],
+              "id": "5adfd230-ec8d-4198-b2bd-d92afef47043",
+              "createdAt": "2026-10-22T02:54:07.000Z",
+              "updatedAt": "2026-10-22T02:54:07.000Z",
+              "uid": "35240-5adfd230-ec8d-4198-b2bd-d92afef47043"
+            },
+            {
+              "name": "Google Places Get Place Details",
+              "id": "ee370ca7-9aa1-4ad5-8f39-48ecd5ee1ecf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
                     "key": "X-Goog-FieldMask",
                     "value": "<string>"
@@ -117,252 +199,185 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n  \"id\": \"ChIJN1t_tDeuEmsRUsoyG83frY4\",\n  \"displayName\": {\n    \"text\": \"Google Building 40\",\n    \"languageCode\": \"en\"\n  },\n  \"types\": [\n    \"restaurant\"\n  ],\n  \"primaryType\": \"restaurant\",\n  \"formattedAddress\": \"1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\",\n  \"shortFormattedAddress\": \"1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA\",\n  \"location\": {\n    \"latitude\": 37.422,\n    \"longitude\": -122.0841\n  },\n  \"rating\": 4.5,\n  \"userRatingCount\": 128,\n  \"priceLevel\": \"PRICE_LEVEL_FREE\",\n  \"businessStatus\": \"OPERATIONAL\",\n  \"nationalPhoneNumber\": \"+1 650-253-0000\",\n  \"internationalPhoneNumber\": \"+1 650-253-0000\",\n  \"websiteUri\": \"https://maps.google.com/?cid=12345678901234567890\",\n  \"googleMapsUri\": \"https://maps.google.com/?cid=12345678901234567890\",\n  \"regularOpeningHours\": {\n    \"openNow\": true,\n    \"periods\": [\n      {\n        \"open\": {\n          \"day\": 1,\n          \"hour\": 9,\n          \"minute\": 0\n        },\n        \"close\": {\n          \"day\": 1,\n          \"hour\": 9,\n          \"minute\": 0\n        }\n      }\n    ],\n    \"weekdayDescriptions\": [\n      \"Monday: 9:00 AM - 5:00 PM\"\n    ]\n  },\n  \"photos\": [\n    {\n      \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n      \"widthPx\": 1080,\n      \"heightPx\": 1080,\n      \"authorAttributions\": [\n        {\n          \"displayName\": \"Googleplex\",\n          \"uri\": \"https://maps.google.com/?cid=12345678901234567890\",\n          \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n        }\n      ]\n    }\n  ],\n  \"reviews\": [\n    {\n      \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n      \"rating\": 4.5,\n      \"text\": {\n        \"text\": \"Google Building 40\",\n        \"languageCode\": \"en\"\n      },\n      \"originalText\": {\n        \"text\": \"Google Building 40\",\n        \"languageCode\": \"en\"\n      },\n      \"relativePublishTimeDescription\": \"Monday: 9:00 AM - 5:00 PM\",\n      \"publishTime\": \"2026-03-15T14:30:00Z\",\n      \"authorAttribution\": {\n        \"displayName\": \"Googleplex\",\n        \"uri\": \"https://maps.google.com/?cid=12345678901234567890\",\n        \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n      }\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "57effbbd-b058-4bb6-9cef-54f337d6d84e",
-              "name": "The requested place was not found.",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/places/:placeId?languageCode=<string>&regionCode=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "places",
                     ":placeId"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "The language in which to return results (BCP-47 language tag).",
                       "key": "languageCode",
-                      "value": "en"
+                      "value": "<string>"
                     },
                     {
+                      "description": "The region code, specified as a CLDR two-character region code.",
                       "key": "regionCode",
-                      "value": "US"
+                      "value": "<string>"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "dbb2ae59-c803-49e7-8c57-13f197dc77d1",
                       "key": "placeId",
+                      "value": "<string>",
                       "description": "(Required) The unique place identifier returned by search or autocomplete."
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
-                    "key": "X-Goog-FieldMask",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieve comprehensive information about a specific place by its place ID, including address, location, opening hours, ratings, reviews, contact details, and photos."
               },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "dfc8092d-69b0-406f-9f54-a24dc93c1135",
-          "name": "Google Places Get Place Photo",
-          "request": {
-            "name": "Google Places Get Place Photo",
-            "description": {
-              "content": "Retrieve a photo for a place. The photo is referenced by the photo resource name returned in a Place Details, Nearby Search, or Text Search response. Returns the photo media or a redirect to the image bytes.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "places",
-                ":placeId",
-                "photos",
-                ":photoName",
-                "media"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "maxHeightPx",
-                  "value": "<integer>",
-                  "description": "Maximum desired height of the image in pixels (1-4800)."
-                },
-                {
-                  "disabled": false,
-                  "key": "maxWidthPx",
-                  "value": "<integer>",
-                  "description": "Maximum desired width of the image in pixels (1-4800)."
-                },
-                {
-                  "disabled": false,
-                  "key": "skipHttpRedirect",
-                  "value": "<boolean>",
-                  "description": "If true, returns a JSON response with the photo URI instead of redirecting."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "placeId",
-                  "description": "(Required) The unique place identifier."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "photoName",
-                  "description": "(Required) The photo resource reference returned in a place's photos array (the segment following photos/)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "7af388eb-cab1-4d41-ac7b-43992eb75f2a",
-              "name": "The photo media response, or a JSON photo reference when skipHttpRedirect is true.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "places",
-                    ":placeId",
-                    "photos",
-                    ":photoName",
-                    "media"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "dd6434ac-328b-4e45-941b-7a79b6af4470",
+                  "name": "Detailed information about the requested place.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
+                        "key": "X-Goog-FieldMask",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Goog-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/places/:placeId?languageCode=<string>&regionCode=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "places",
+                        ":placeId"
+                      ],
+                      "query": [
+                        {
+                          "description": "The language in which to return results (BCP-47 language tag).",
+                          "key": "languageCode",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The region code, specified as a CLDR two-character region code.",
+                          "key": "regionCode",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "placeId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "maxHeightPx",
-                      "value": "1080"
-                    },
-                    {
-                      "key": "maxWidthPx",
-                      "value": "1080"
-                    },
-                    {
-                      "key": "skipHttpRedirect",
-                      "value": "true"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "placeId",
-                      "description": "(Required) The unique place identifier."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "photoName",
-                      "description": "(Required) The photo resource reference returned in a place's photos array (the segment following photos/)."
-                    }
-                  ]
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"displayName\": {\n    \"text\": \"<string>\",\n    \"languageCode\": \"<string>\"\n  },\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"primaryType\": \"<string>\",\n  \"formattedAddress\": \"<string>\",\n  \"shortFormattedAddress\": \"<string>\",\n  \"location\": {\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  },\n  \"rating\": \"<number>\",\n  \"userRatingCount\": \"<integer>\",\n  \"priceLevel\": \"PRICE_LEVEL_INEXPENSIVE\",\n  \"businessStatus\": \"OPERATIONAL\",\n  \"nationalPhoneNumber\": \"<string>\",\n  \"internationalPhoneNumber\": \"<string>\",\n  \"websiteUri\": \"<uri>\",\n  \"googleMapsUri\": \"<uri>\",\n  \"regularOpeningHours\": {\n    \"openNow\": \"<boolean>\",\n    \"periods\": [\n      {\n        \"open\": {\n          \"day\": \"<integer>\",\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\"\n        },\n        \"close\": {\n          \"day\": \"<integer>\",\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\"\n        }\n      },\n      {\n        \"open\": {\n          \"day\": \"<integer>\",\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\"\n        },\n        \"close\": {\n          \"day\": \"<integer>\",\n          \"hour\": \"<integer>\",\n          \"minute\": \"<integer>\"\n        }\n      }\n    ],\n    \"weekdayDescriptions\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"photos\": [\n    {\n      \"name\": \"<string>\",\n      \"widthPx\": \"<integer>\",\n      \"heightPx\": \"<integer>\",\n      \"authorAttributions\": [\n        {\n          \"displayName\": \"<string>\",\n          \"uri\": \"<uri>\",\n          \"photoUri\": \"<uri>\"\n        },\n        {\n          \"displayName\": \"<string>\",\n          \"uri\": \"<uri>\",\n          \"photoUri\": \"<uri>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"widthPx\": \"<integer>\",\n      \"heightPx\": \"<integer>\",\n      \"authorAttributions\": [\n        {\n          \"displayName\": \"<string>\",\n          \"uri\": \"<uri>\",\n          \"photoUri\": \"<uri>\"\n        },\n        {\n          \"displayName\": \"<string>\",\n          \"uri\": \"<uri>\",\n          \"photoUri\": \"<uri>\"\n        }\n      ]\n    }\n  ],\n  \"reviews\": [\n    {\n      \"name\": \"<string>\",\n      \"rating\": \"<number>\",\n      \"text\": {\n        \"text\": \"<string>\",\n        \"languageCode\": \"<string>\"\n      },\n      \"originalText\": {\n        \"text\": \"<string>\",\n        \"languageCode\": \"<string>\"\n      },\n      \"relativePublishTimeDescription\": \"<string>\",\n      \"publishTime\": \"<dateTime>\",\n      \"authorAttribution\": {\n        \"displayName\": \"<string>\",\n        \"uri\": \"<uri>\",\n        \"photoUri\": \"<uri>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"rating\": \"<number>\",\n      \"text\": {\n        \"text\": \"<string>\",\n        \"languageCode\": \"<string>\"\n      },\n      \"originalText\": {\n        \"text\": \"<string>\",\n        \"languageCode\": \"<string>\"\n      },\n      \"relativePublishTimeDescription\": \"<string>\",\n      \"publishTime\": \"<dateTime>\",\n      \"authorAttribution\": {\n        \"displayName\": \"<string>\",\n        \"uri\": \"<uri>\",\n        \"photoUri\": \"<uri>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T02:54:07.000Z",
+                  "updatedAt": "2026-10-22T02:54:07.000Z",
+                  "uid": "35240-dd6434ac-328b-4e45-941b-7a79b6af4470"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Goog-Api-Key",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "90a96d2b-b855-4e97-a5d1-7cdacb681350",
+                  "name": "The requested place was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Comma-separated list of place fields to return. Required on all Places API (New) requests; determines the response shape and the billing SKU tier (for example places.id, places.displayName, places.location).",
+                        "key": "X-Goog-FieldMask",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Goog-Api-Key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/places/:placeId?languageCode=<string>&regionCode=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "places",
+                        ":placeId"
+                      ],
+                      "query": [
+                        {
+                          "description": "The language in which to return results (BCP-47 language tag).",
+                          "key": "languageCode",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The region code, specified as a CLDR two-character region code.",
+                          "key": "regionCode",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "placeId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:54:07.000Z",
+                  "updatedAt": "2026-10-22T02:54:07.000Z",
+                  "uid": "35240-90a96d2b-b855-4e97-a5d1-7cdacb681350"
                 }
               ],
-              "body": "{\n  \"name\": \"places/ChIJN1t_tDeuEmsRUsoyG83frY4\",\n  \"photoUri\": \"https://places.googleapis.com/v1/places/ChIJ/photos/AeJ/media\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:54:07.000Z",
+              "updatedAt": "2026-10-22T02:54:07.000Z",
+              "uid": "35240-ee370ca7-9aa1-4ad5-8f39-48ecd5ee1ecf"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "62c80f5d-9892-4cd3-bb48-98f026919580",
+          "createdAt": "2026-10-22T02:54:07.000Z",
+          "updatedAt": "2026-10-22T02:54:07.000Z",
+          "uid": "35240-62c80f5d-9892-4cd3-bb48-98f026919580"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://places.googleapis.com/v1",
-      "key": "baseUrl"
+      "id": "6a8bb014-10e0-4ae1-bdcb-af90e9689b56",
+      "createdAt": "2026-10-22T02:54:07.000Z",
+      "updatedAt": "2026-10-22T02:54:07.000Z",
+      "uid": "35240-6a8bb014-10e0-4ae1-bdcb-af90e9689b56"
     }
   ],
   "auth": {
@@ -370,25 +385,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Goog-Api-Key"
+        "value": "X-Goog-Api-Key",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "862b2432-19cf-486b-85dc-1f66fdc04a74",
-    "name": "Google API (New) Places API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Places API (New) is a service that accepts HTTP requests for location data through a variety of methods. It returns formatted location data and imagery about establishments, geographic locations, or prominent points of interest. The API supports Text Search, Nearby Search, Place Details, Place Photos, and Autocomplete. Responses on the New API are shaped by the required X-Goog-FieldMask header, which controls exactly which fields are returned and which billing SKU applies.\n\nContact Support:\n Name: Google Maps Platform",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://places.googleapis.com/v1"
     }
-  }
+  ]
 }
